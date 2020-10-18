@@ -1,0 +1,174 @@
+function onLoad()
+    SCRIPT_ZONE_DRAW_TRAIN = 'c5ffc2'
+    SCRIPT_ZONE_DISCARD_TRAIN = 'f9847e'
+    
+    SCRIPT_ZONE_PICKUP_1 = 'f2ef96'
+    SCRIPT_ZONE_PICKUP_2 = '73d875'
+    SCRIPT_ZONE_PICKUP_3 = '674240'
+    SCRIPT_ZONE_PICKUP_4 = '7ece44'
+    SCRIPT_ZONE_PICKUP_5 = 'a7a47b'
+     
+    SCRIPT_ZONE_DRAW_ROUTE = '4acc8a'
+    SCRIPT_ZONE_DISCARD_ROUTE = '7007e5'
+    SCRIPT_ZONE_LONG_ROUTE = '8372d4'
+     
+    SCRIPT_ZONE_RED_TRAIN = '21050a'
+    SCRIPT_ZONE_RED_STATION = '759781'
+     
+    SCRIPT_ZONE_ORANGE_TRAIN = '54db73'
+    SCRIPT_ZONE_ORANGE_STATION = '6de88a'
+     
+    SCRIPT_ZONE_YELLOW_TRAIN = '14a55d'
+    SCRIPT_ZONE_YELLOW_STATION = 'f5009a'
+     
+    SCRIPT_ZONE_PURPLE_TRAIN = '98ce13'
+    SCRIPT_ZONE_PURPLE_STATION = 'b07e8a'
+     
+    SCRIPT_ZONE_BLUE_TRAIN = 'd9610b'
+    SCRIPT_ZONE_BLUE_STATION = '52b8c1'
+     
+    SCRIPT_ZONE_GREEN_TRAIN = 'd14d1b'
+    SCRIPT_ZONE_GREEN_STATION = '915526'
+
+    flagSetupGamePressed = false
+
+    self.interactable = false;
+
+    -- Pickup Zone Buttons (1 to 5 from default camera angle)
+    self.createButton({
+        click_function = "pickupZoneButton1",
+        function_owner = self,
+        label = "Pickup",
+        position = {38, 42.8, -16},
+        rotation = {0, 270, 0},
+        width = 2000,
+        height = 500,
+        font_size = 400,
+        alignment = 3
+    })
+
+
+
+    self.createButton({click_function = "pickupZoneButton2", function_owner = self, label = "Pickup", position = {38, 42.8, -8}, rotation = {0, 270, 0}, width = 2000, height = 500, font_size = 400, alignment = 3})
+    self.createButton({click_function = "pickupZoneButton3", function_owner = self, label = "Pickup", position = {38, 42.8, 0}, rotation = {0, 270, 0}, width = 2000, height = 500, font_size = 400, alignment = 3})
+    self.createButton({click_function = "pickupZoneButton4", function_owner = self, label = "Pickup", position = {38, 42.8, 8}, rotation = {0, 270, 0}, width = 2000, height = 500, font_size = 400, alignment = 3})
+    self.createButton({click_function = "pickupZoneButton5", function_owner = self, label = "Pickup", position = {38, 42.8, 16}, rotation = {0, 270, 0}, width = 2000, height = 500, font_size = 400, alignment = 3})
+
+    -- Draw Buttons 1 & 2
+    self.createButton({click_function = "drawTrainZoneButtonSingle", function_owner = self, label = "Draw 1", position = {52.3, 43.8, 4}, width = 2000, height = 400, font_size = 400, alignment = 3})
+    self.createButton({click_function = "drawTrainZoneButtonDouble", function_owner = self, label = "Draw 2", position = {52.3, 43.8, 5}, width = 2000, height = 400, font_size = 400, alignment = 3})
+
+    -- Setup Button
+    self.createButton({click_function = "gameSetupButton", function_owner = self, label = "Setup Game", position = {54.4, 43.8, -10}, width = 3800, height = 700, font_size = 400, color = {0, 0.9622, 1, 1}, alignment = 3})
+
+    -- Draw Tickets
+    self.createButton({click_function = "drawTicketsButton", function_owner = self, label = "Draw 3 Tickets", position = {-42, 42.8, -3}, width = 3100, height = 500, font_size = 400, alignment = 3})
+end
+
+function gameSetupButton()
+    if flagSetupGamePressed then
+        return nil
+    end
+    flagSetupGamePressed = true
+    local drawDeck = findDeckInZone(getObjectFromGUID(SCRIPT_ZONE_DRAW_TRAIN))
+    local routeDeck = findDeckInZone(getObjectFromGUID(SCRIPT_ZONE_DRAW_ROUTE))
+    local longRouteDeck = findDeckInZone(getObjectFromGUID(SCRIPT_ZONE_LONG_ROUTE))
+
+    local pickupZone1 = getObjectFromGUID(SCRIPT_ZONE_PICKUP_1).getPosition()
+    local pickupZone2 = getObjectFromGUID(SCRIPT_ZONE_PICKUP_2).getPosition()
+    local pickupZone3 = getObjectFromGUID(SCRIPT_ZONE_PICKUP_3).getPosition()
+    local pickupZone4 = getObjectFromGUID(SCRIPT_ZONE_PICKUP_4).getPosition()
+    local pickupZone5 = getObjectFromGUID(SCRIPT_ZONE_PICKUP_5).getPosition()
+
+    local smoothSetupVecArray = {pickupZone1, pickupZone2, pickupZone3, pickupZone4, pickupZone5}
+
+    drawDeck.randomize()
+    routeDeck.randomize()
+    longRouteDeck.randomize()
+
+    drawDeck.deal(4)
+    routeDeck.deal(3)
+    longRouteDeck.deal(1)
+
+    local params = {}
+    params.flip = true
+
+    for i=1, 5 do
+        params.position = smoothSetupVecArray[i]
+        params.rotation = Vector(0,-90,0)
+        obj = drawDeck.takeObject(params)
+    end
+    return nil
+end
+
+function drawTrainZoneButtonSingle()
+    drawDeck = findDeckInZone(getObjectFromGUID(SCRIPT_ZONE_DRAW_TRAIN))
+    drawDeck.deal(1, Turns.turn_color)
+    drawDeck = findDeckInZone(getObjectFromGUID(SCRIPT_ZONE_DRAW_TRAIN))
+    return nil
+end
+
+function drawTrainZoneButtonDouble()
+    drawTrainZoneButtonSingle()
+    drawTrainZoneButtonSingle()
+    return nil
+end
+
+function findDeckInZone(zone)
+    local objectsInZone = zone.getObjects()
+    for i, object in ipairs(objectsInZone) do
+        if object.tag == "Deck" or object.tag == "Card" then
+            return object
+        end
+    end
+    return nil
+end
+
+function findCardInZone(zone)
+    local objectsInZone = zone.getObjects()
+    for i, object in ipairs(objectsInZone) do
+        if object.tag == "Card" and object.getDescription() ~= "Placeholder" then
+            return object
+        end
+    end
+    return nil
+end
+
+function pickupZoneButton1()
+    handlePickUpZoneViaGUID(SCRIPT_ZONE_PICKUP_1)
+end
+
+function pickupZoneButton2()
+    handlePickUpZoneViaGUID(SCRIPT_ZONE_PICKUP_2)
+end
+
+function pickupZoneButton3()
+    handlePickUpZoneViaGUID(SCRIPT_ZONE_PICKUP_3)
+end
+
+function pickupZoneButton4()
+    handlePickUpZoneViaGUID(SCRIPT_ZONE_PICKUP_4)
+end
+
+function pickupZoneButton5()
+    handlePickUpZoneViaGUID(SCRIPT_ZONE_PICKUP_5)
+end
+
+function drawTicketsButton()
+    local routeDeck = findDeckInZone(getObjectFromGUID(SCRIPT_ZONE_DRAW_ROUTE))
+    routeDeck.deal(3, Turns.turn_color)
+end
+
+function handlePickUpZoneViaGUID(guid)
+    pickupZone = findCardInZone(getObjectFromGUID(guid))
+    pickupZone.deal(1, Turns.turn_color)
+    local vecPosition = getObjectFromGUID(guid).getPosition()
+    drawDeck = findDeckInZone(getObjectFromGUID(SCRIPT_ZONE_DRAW_TRAIN))
+    params = {
+        flip = true,
+        position = vecPosition,
+        rotation = Vector(0,-90,0)
+    }
+    drawDeck.takeObject(params)
+    return nil
+end

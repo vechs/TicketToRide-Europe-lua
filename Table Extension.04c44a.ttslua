@@ -1,0 +1,9 @@
+function onLoad()
+    self.interactable = false;
+
+end
+
+function onButtonClick()
+    self.setState( 1 + (self.getStateId() % 2) )
+
+end

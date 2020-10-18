@@ -1,0 +1,13 @@
+--[[ Lua code. See documentation: http://berserk-games.com/knowledgebase/scripting/ --]]
+
+--[[ The onLoad event is called after the game save finishes loading. --]]
+function onLoad()
+    Turns.enable = true
+    -- print("It is ", Turns.turn_color, "'s turn.")
+    -- numCards = getObject('SCRIPT_ZONE_DRAW_TRAIN')
+end
+
+--[[ The onUpdate event is called once per frame. --]]
+function onUpdate ()
+    --[[ print('onUpdate loop!') --]]
+end
