@@ -1,0 +1,3 @@
+-- function onLoad()
+--     self.createButton({click_function = "map_Cadiz_to_Madrid", function_owner = self, label = " ", position = {-1.6, 0.85, 1.2}, scale = {0.2, 0.2, 0.2}, width = 400, height = 600, font_size = 400, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Cadiz to Madrid"})
+-- end

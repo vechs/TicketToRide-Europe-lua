@@ -30,6 +30,16 @@ function onLoad()
     SCRIPT_ZONE_GREEN_TRAIN = 'd14d1b'
     SCRIPT_ZONE_GREEN_STATION = '915526'
 
+    RAINBOW_GUIDS={'d602e3', '552840', 'bd2d4e', '5ccb3b', '04483a', 'cc1073', '0f266a', '7923c2', 'a9da1a', '771b1d', '4c35fc', 'efd271', 'd01598', '7bdc62'}
+    ORANGE_GUIDS={'549b90', 'faa67a', 'd8c0f2', '720156', '600e72', '327baf', '0364c0', 'cd32a1', 'a1270b', '7b8eff', 'ddde7a', 'b6363e'}
+    GREEN_GUIDS={'0936fb', '9738d0', 'acd4fe', '4849d4', 'df71b3', '540ce4', '5481a9', '0ebb18', 'be44d7', '9f9daa', '818eca', '55807d'}
+    BLACK_GUIDS={'6597aa', 'a7b09f', '46806d', '80e9c8', 'b6610f', '519973', 'fec4fa', 'f82432', '564d7a', 'e4cd60', 'ce666b', '9d5b0e'}
+    YELLOW_GUIDS={'dbfc87', '00f148', '280ed2', 'e0f0d5', '0e80fd', '3e9d68', '53d038', '055dfd', 'fa7ce4', 'be64c1', 'b35f7a', 'ab12bf'}
+    BLUE_GUIDS={'7d7b1e', '1b5530', 'f07e67', '61f7c7', '6619ad', '1848ce', '671e76', 'd290f2', '689d4d', 'c634ae', '5ca4d9', 'bbbf27'}
+    WHITE_GUIDS={'bff943', 'e339e0', '205626', '8e09e5', '743f81', 'cad3eb', '231e39', '45da5d', '4c2fa5', '5f335b', 'd4b58e', '8978f7'}
+    RED_GUIDS={'dfa5fd', '9c6316', 'c38694', '413161', 'b6003c', '7f6de1', 'c28502', 'be8b07', '4fc74a', 'ea757f', '7d9786', '6ff0bc'}
+    PINK_GUIDS={'bb85b7', '0146f0', 'fa789a', '267511', '961cbb', '2ca00f', '5d2fb6', '0e3038', '1c6854', '05439b', '0c3882', '843c9f'}
+
     flagSetupGamePressed = false
 
     self.interactable = false;
@@ -66,6 +76,7 @@ function onLoad()
 end
 
 function gameSetupButton()
+    Turns.enable = true
     if flagSetupGamePressed then
         return nil
     end
