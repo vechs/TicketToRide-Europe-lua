@@ -1,3 +1,658 @@
--- function onLoad()
---     self.createButton({click_function = "map_Cadiz_to_Madrid", function_owner = self, label = " ", position = {-1.6, 0.85, 1.2}, scale = {0.2, 0.2, 0.2}, width = 400, height = 600, font_size = 400, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Cadiz to Madrid"})
--- end
+function onLoad()
+    maxTrainsPerPlayer = 45
+    Player["White"].changeColor("Red")
+    for i, v in ipairs(allTrainCounters) do
+        obj = getObjectFromGUID(v)
+        obj.setValue(maxTrainsPerPlayer)
+    end
+
+    -- Hide all train routes initially
+    for i, v in ipairs(AllRoutes) do
+        hideTrainRoute(v)
+    end
+    -- Lock all trains as players do NOT need to interact with them
+    for i, v in ipairs(getAllObjects()) do
+        if(v.getName() == "Train") then
+            v.setLock(true)
+        end
+    end
+    
+    self.createButton({click_function = "map_Cadiz_to_Madrid", function_owner = self, label = " ", position = {-1.6, 0.1, 1.2}, scale = {0.2, 0.2, 0.2}, width = 400, height = 600, font_size = 400, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Cadiz to Madrid"})
+    self.createButton({click_function = "map_Lisboa_to_Madrid", function_owner = self, label = " ", position = {-1.95, 0.1, 0.95}, scale = {0.5, 0.5, 0.5}, width = 400, height = 300, font_size = 400, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Lisboa to Madrid", alignment = 2})
+    self.createButton({click_function = "map_Lisboa_to_Cadiz", function_owner = self, label = " ", position = {-1.95, 0.1, 1.25}, scale = {0.5, 0.5, 0.5}, width = 400, height = 300, font_size = 400, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Lisboa to Cadiz", alignment = 2})
+    self.createButton({click_function = "map_Marseille_to_Roma_T", function_owner = self, label = " ", position = {-0.4, 0.1, 0.6}, scale = {0.5, 0.5, 0.5}, width = 400, height = 300, font_size = 400, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Marseille to Roma", alignment = 2})
+    self.createButton({click_function = "map_Madrid_to_Pamplona_Black_T", function_owner = self, label = " ", position = {-1.6, 0.1, 0.8}, rotation = {0, 135, 0}, scale = {0.6, 0.5, 0.1}, width = 400, height = 300, font_size = 400, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Madrid to Pamplona (Black/Tunnel)", alignment = 2})
+    self.createButton({click_function = "map_Madrid_to_Pamplona_White_T", function_owner = self, label = " ", position = {-1.55, 0.1, 0.88}, rotation = {0, 135, 0}, scale = {0.6, 0.5, 0.1}, width = 400, height = 300, font_size = 400, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Madrid to Pamplona (White/Tunnel)", alignment = 2})
+    self.createButton({click_function = "map_Madrid_to_Barcelona", function_owner = self, label = " ", position = {-1.48, 0.1, 1.03}, scale = {0.4, 0.5, 0.1}, width = 400, height = 300, font_size = 400, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Madrid to Barcelona", alignment = 2})
+    self.createButton({click_function = "map_Pamplona_to_Barcelona_T", function_owner = self, label = " ", position = {-1.3, 0.1, 0.85}, rotation = {0, 85, 0}, scale = {0.4, 0.5, 0.1}, width = 400, height = 300, font_size = 400, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Pamplona to Barcelona", alignment = 2})
+    self.createButton({click_function = "map_Pamplona_to_Paris_Blue", function_owner = self, label = " ", position = {-1.23, 0.1, 0.34}, rotation = {0, 112, 0}, scale = {0.8, 0.5, 0.15}, width = 400, height = 300, font_size = 400, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Pamplona to Paris (Blue)", alignment = 2})
+    self.createButton({click_function = "map_Pamplona_to_Paris_Green", function_owner = self, label = " ", position = {-1.16, 0.1, 0.34}, rotation = {0, 112, 0}, scale = {0.8, 0.5, 0.15}, width = 400, height = 300, font_size = 400, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Pamplona to Paris (Green)", alignment = 2})
+    self.createButton({click_function = "map_Pamplona_to_Marseille", function_owner = self, label = " ", position = {-1.02, 0.1, 0.6}, rotation = {0, 170, 0}, scale = {0.7, 0.5, 0.25}, width = 400, height = 300, font_size = 400, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Pamplona to Marseille", alignment = 2})
+    self.createButton({click_function = "map_Barcelona_to_Marseille", function_owner = self, label = " ", position = {-1, 0.1, 0.8}, rotation = {0, 145, 0}, scale = {0.8, 0.5, 0.2}, width = 400, height = 300, font_size = 400, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Barcelona to Marseille", alignment = 2})
+    self.createButton({click_function = "map_Pamplona_to_Brest", function_owner = self, label = " ", position = {-1.48, 0.1, 0.24}, rotation = {0, 75, 0}, scale = {0.62, 0.5, 0.75}, width = 450, height = 200, font_size = 400, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Pamplona to Brest", alignment = 2})
+    self.createButton({click_function = "map_Frankfurt_to_Berlin_Red", function_owner = self, label = " ", position = {-0.26, 0.1, -0.3}, rotation = {0, 155, 0}, scale = {0.6, 0.5, -0.1}, width = 400, height = 300, font_size = 400, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Frankfurt to Berlin (Red)", alignment = 2})
+    self.createButton({click_function = "map_Frankfurt_to_Berlin_Black", function_owner = self, label = " ", position = {-0.29, 0.1, -0.35}, rotation = {0, 155, 0}, scale = {0.6, 0.5, -0.1}, width = 400, height = 300, font_size = 400, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Frankfurt to Berlin (Black)", alignment = 2})
+    self.createButton({click_function = "map_Paris_to_Frankfurt_White", function_owner = self, label = " ", position = {-0.77, 0.1, -0.11}, rotation = {0, 150, 0}, scale = {0.6, 0.5, -0.1}, width = 400, height = 300, font_size = 400, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Paris to Frankfurt (White)", alignment = 2})
+    self.createButton({click_function = "map_Paris_to_Frankfurt_Orange", function_owner = self, label = " ", position = {-0.74, 0.1, -0.07}, rotation = {0, 150, 0}, scale = {0.6, 0.5, -0.1}, width = 400, height = 300, font_size = 400, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Paris to Frankfurt (Orange)", alignment = 2})
+    self.createButton({click_function = "map_Paris_to_Bruxelles_Yellow", function_owner = self, label = " ", position = {-1, 0.1, -0.2}, rotation = {0, 120, 0}, scale = {0.4, 0.5, -0.1}, width = 400, height = 300, font_size = 400, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Paris to Bruxelles (Yellow)", alignment = 2})
+    self.createButton({click_function = "map_Paris_to_Bruxelles_Red", function_owner = self, label = " ", position = {-0.94, 0.1, -0.18}, rotation = {0, 120, 0}, scale = {0.4, 0.5, -0.1}, width = 400, height = 300, font_size = 400, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Paris to Bruxelles (Red)", alignment = 2})
+    self.createButton({click_function = "map_Bruxelles_to_Amsterdam", function_owner = self, label = " ", position = {-0.851, 0.1, -0.47}, rotation = {0, 120, 0}, scale = {0.2, 0.5, -0.1}, width = 400, height = 300, font_size = 400, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Bruxelles to Amsterdam", alignment = 2})
+
+    --TODO - Replace all these buttons
+    self.createButton({click_function = "map_Brest_to_Paris", function_owner = self, label = "Brest_to_Paris", position = {-3.5, 1, -1.4}, scale = {0.1, 0.1, 0.1}, width = 3000, height = 500, font_size = 400, tooltip = "Brest_to_Paris", alignment = 2})
+    self.createButton({click_function = "map_Brest_to_Dieppe", function_owner = self, label = "Brest_to_Dieppe", position = {-3.5, 1, -1.3}, scale = {0.1, 0.1, 0.1}, width = 3000, height = 500, font_size = 400, tooltip = "Brest_to_Dieppe", alignment = 2})
+    self.createButton({click_function = "map_Paris_to_Marseille", function_owner = self, label = "Paris_to_Marseille", position = {-3.5, 1, -1.2}, scale = {0.1, 0.1, 0.1}, width = 3000, height = 500, font_size = 400, tooltip = "Paris_to_Marseille", alignment = 2})
+    self.createButton({click_function = "map_Paris_to_Zurich_T", function_owner = self, label = "Paris_to_Zurich_T", position = {-3.5, 1, -1.1}, scale = {0.1, 0.1, 0.1}, width = 3000, height = 500, font_size = 400, tooltip = "Paris_to_Zurich_T", alignment = 2})
+    self.createButton({click_function = "map_Dieppe_to_London_F_1", function_owner = self, label = "Dieppe_to_London_F_1", position = {-3.5, 1, -1.0}, scale = {0.1, 0.1, 0.1}, width = 3000, height = 500, font_size = 400, tooltip = "Dieppe_to_London_F_1", alignment = 2})
+    self.createButton({click_function = "map_Dieppe_to_London_F_2", function_owner = self, label = "Dieppe_to_London_F_2", position = {-3.5, 1, -0.9}, scale = {0.1, 0.1, 0.1}, width = 3000, height = 500, font_size = 400, tooltip = "Dieppe_to_London_F_2", alignment = 2})
+    self.createButton({click_function = "map_Dieppe_to_Paris", function_owner = self, label = "Dieppe_to_Paris", position = {-3.5, 1, -0.8}, scale = {0.1, 0.1, 0.1}, width = 3000, height = 500, font_size = 400, tooltip = "Dieppe_to_Paris", alignment = 2})
+    self.createButton({click_function = "map_Dieppe_to_Bruxelles", function_owner = self, label = "Dieppe_to_Bruxelles", position = {-3.5, 1, -0.7}, scale = {0.1, 0.1, 0.1}, width = 3000, height = 500, font_size = 400, tooltip = "Dieppe_to_Bruxelles", alignment = 2})
+    self.createButton({click_function = "map_Bruxelles_to_Amsterdam", function_owner = self, label = "Bruxelles_to_Amsterdam", position = {-3.5, 1, -0.6}, scale = {0.1, 0.1, 0.1}, width = 3000, height = 500, font_size = 400, tooltip = "Bruxelles_to_Amsterdam", alignment = 2})
+    self.createButton({click_function = "map_Bruxelles_to_Frankfurt", function_owner = self, label = "Bruxelles_to_Frankfurt", position = {-3.5, 1, -0.5}, scale = {0.1, 0.1, 0.1}, width = 3000, height = 500, font_size = 400, tooltip = "Bruxelles_to_Frankfurt", alignment = 2})
+    self.createButton({click_function = "map_London_to_Edinburgh_Black", function_owner = self, label = "London_to_Edinburgh_Black", position = {-3.5, 1, -0.4}, scale = {0.1, 0.1, 0.1}, width = 3000, height = 500, font_size = 400, tooltip = "London_to_Edinburgh_Black", alignment = 2})
+    self.createButton({click_function = "map_London_to_Edinburgh_Orange", function_owner = self, label = "London_to_Edinburgh_Orange", position = {-3.5, 1, -0.3}, scale = {0.1, 0.1, 0.1}, width = 3000, height = 500, font_size = 400, tooltip = "London_to_Edinburgh_Orange", alignment = 2})
+    self.createButton({click_function = "map_London_to_Amsterdam", function_owner = self, label = "London_to_Amsterdam", position = {-3.5, 1, -0.2}, scale = {0.1, 0.1, 0.1}, width = 3000, height = 500, font_size = 400, tooltip = "London_to_Amsterdam", alignment = 2})
+    self.createButton({click_function = "map_Amsterdam_to_Essen", function_owner = self, label = "Amsterdam_to_Essen", position = {-3.5, 1, -0.1}, scale = {0.1, 0.1, 0.1}, width = 3000, height = 500, font_size = 400, tooltip = "Amsterdam_to_Essen", alignment = 2})
+    self.createButton({click_function = "map_Amsterdam_to_Frankfurt", function_owner = self, label = "Amsterdam_to_Frankfurt", position = {-3.5, 1, 0}, scale = {0.1, 0.1, 0.1}, width = 3000, height = 500, font_size = 400, tooltip = "Amsterdam_to_Frankfurt", alignment = 2})
+    self.createButton({click_function = "map_Frankfurt_to_Munchen", function_owner = self, label = "Frankfurt_to_Munchen", position = {-3.5, 1, 0.1}, scale = {0.1, 0.1, 0.1}, width = 3000, height = 500, font_size = 400, tooltip = "Frankfurt_to_Munchen", alignment = 2})
+    self.createButton({click_function = "map_Frankfurt_to_Essen", function_owner = self, label = "Frankfurt_to_Essen", position = {-3.5, 1, 0.2}, scale = {0.1, 0.1, 0.1}, width = 3000, height = 500, font_size = 400, tooltip = "Frankfurt_to_Essen", alignment = 2})
+    self.createButton({click_function = "map_Essen_to_Kobenhavn_F_1", function_owner = self, label = "Essen_to_Kobenhavn_F_1", position = {-3.5, 1, 0.3}, scale = {0.1, 0.1, 0.1}, width = 3000, height = 500, font_size = 400, tooltip = "Essen_to_Kobenhavn_F_1", alignment = 2})
+    self.createButton({click_function = "map_Essen_to_Kobenhavn_F_2", function_owner = self, label = "Essen_to_Kobenhavn_F_2", position = {-3.5, 1, 0.4}, scale = {0.1, 0.1, 0.1}, width = 3000, height = 500, font_size = 400, tooltip = "Essen_to_Kobenhavn_F_2", alignment = 2})
+    self.createButton({click_function = "map_Essen_to_Berlin", function_owner = self, label = "Essen_to_Berlin", position = {-3.5, 1, 0.5}, scale = {0.1, 0.1, 0.1}, width = 3000, height = 500, font_size = 400, tooltip = "Essen_to_Berlin", alignment = 2})
+    self.createButton({click_function = "map_Berlin_to_Warszawa_Pink", function_owner = self, label = "Berlin_to_Warszawa_Pink", position = {-3.5, 1, 0.6}, scale = {0.1, 0.1, 0.1}, width = 3000, height = 500, font_size = 400, tooltip = "Berlin_to_Warszawa_Pink", alignment = 2})
+    self.createButton({click_function = "map_Berlin_to_Warszawa_Yellow", function_owner = self, label = "Berlin_to_Warszawa_Yellow", position = {-3.5, 1, 0.7}, scale = {0.1, 0.1, 0.1}, width = 3000, height = 500, font_size = 400, tooltip = "Berlin_to_Warszawa_Yellow", alignment = 2})
+    self.createButton({click_function = "map_Berlin_to_Danzig", function_owner = self, label = "Berlin_to_Danzig", position = {-3.5, 1, 0.8}, scale = {0.1, 0.1, 0.1}, width = 3000, height = 500, font_size = 400, tooltip = "Berlin_to_Danzig", alignment = 2})
+    self.createButton({click_function = "map_Berlin_to_Wien", function_owner = self, label = "Berlin_to_Wien", position = {-3.5, 1, 0.9}, scale = {0.1, 0.1, 0.1}, width = 3000, height = 500, font_size = 400, tooltip = "Berlin_to_Wien", alignment = 2})
+    self.createButton({click_function = "map_Zurich_to_Munchen_T", function_owner = self, label = "Zurich_to_Munchen_T", position = {-3.5, 1, 1}, scale = {0.1, 0.1, 0.1}, width = 3000, height = 500, font_size = 400, tooltip = "Zurich_to_Munchen_T", alignment = 2})
+    self.createButton({click_function = "map_Zurich_to_Venezia_T", function_owner = self, label = "Zurich_to_Venezia_T", position = {-3.5, 1, 1.1}, scale = {0.1, 0.1, 0.1}, width = 3000, height = 500, font_size = 400, tooltip = "Zurich_to_Venezia_T", alignment = 2})
+    self.createButton({click_function = "map_Zurich_to_Marseille_T", function_owner = self, label = "Zurich_to_Marseille_T", position = {-3.5, 1, 1.2}, scale = {0.1, 0.1, 0.1}, width = 3000, height = 500, font_size = 400, tooltip = "Zurich_to_Marseille_T", alignment = 2})
+    self.createButton({click_function = "map_Marseille_to_Roma_T", function_owner = self, label = "Marseille_to_Roma_T", position = {-3.5, 1, 1.3}, scale = {0.1, 0.1, 0.1}, width = 3000, height = 500, font_size = 400, tooltip = "Marseille_to_Roma_T", alignment = 2})
+    self.createButton({click_function = "map_Munchen_to_Venezia_T", function_owner = self, label = "Munchen_to_Venezia_T", position = {-3.5, 1, 1.4}, scale = {0.1, 0.1, 0.1}, width = 3000, height = 500, font_size = 400, tooltip = "Munchen_to_Venezia_T", alignment = 2})
+    self.createButton({click_function = "map_Munchen_to_Wien", function_owner = self, label = "Munchen_to_Wien", position = {-3.5, 1, 1.5}, scale = {0.1, 0.1, 0.1}, width = 3000, height = 500, font_size = 400, tooltip = "Munchen_to_Wien", alignment = 2})
+end
+
+function isPlayerTurnOrGM(color)
+    table = getSeatedPlayers()
+    for _, value in pairs(table) do
+        if value == color and Turns.turn_color == color then
+            return true
+        elseif color == "Black" then
+            return true
+        end
+    end
+    return false
+end
+
+function placeTrainRoute(route, color, alt_click)
+    -- print(color)
+    if(alt_click == true) then
+        hideTrainRoute(route)
+    end
+    if isPlayerTurnOrGM(color) then
+        showTrainRoute(route, color)
+        reduceTrainCounter(route, color)
+    else
+        broadcastToColor("It's not your turn or you are not seated in a valid colour.", color, errColor)
+    end
+end
+
+function hideTrainRoute(route)
+    for i, v in ipairs(route) do
+        obj = getObjectFromGUID(v)
+        obj.setColorTint('White')
+        position = obj.getPosition()
+        x, y, z = position:get()
+        obj.setPositionSmooth(Vector(x, y-1, z))
+        obj.setInvisibleTo({'Orange', 'Red', 'Green', 'Blue', 'Purple', 'Yellow', 'Teal', 'Brown', 'Pink', 'White', 'Grey', 'Black'})
+    end
+end
+
+function showTrainRoute(route, color)
+    for i, v in ipairs(route) do
+        obj = getObjectFromGUID(v)
+        if(obj.getColorTint() ~= Color.White) then
+            return nil
+        end
+        obj.setColorTint(color)
+        position = obj.getPosition()
+        x, y, z = position:get()
+        obj.setPositionSmooth(Vector(x, y+2, z))
+        obj.setInvisibleTo({})
+        obj.setLock(false)
+    end
+end
+
+function reduceTrainCounter(route, color)
+    playerColorToIndex = 0
+
+    if(color == 'Red') then playerColorToIndex = 1 end
+    if(color == 'Orange') then playerColorToIndex = 2 end
+    if(color == 'Yellow') then playerColorToIndex = 3 end
+    if(color == 'Purple') then playerColorToIndex = 4 end
+    if(color == 'Blue') then playerColorToIndex = 5 end
+    if(color == 'Green') then playerColorToIndex = 6 end
+
+    trainCounter = getObjectFromGUID(allTrainCounters[playerColorToIndex])
+    currentCount = trainCounter.getValue()
+    currentCount = trainCounter.setValue(currentCount - #route)
+end
+
+function map_Cadiz_to_Madrid(obj, color, alt_click)
+    placeTrainRoute(Cadiz_to_Madrid, color, alt_click)
+end
+function map_Lisboa_to_Cadiz(obj, color, alt_click)
+    placeTrainRoute(Lisboa_to_Cadiz, color, alt_click)
+end
+function map_Lisboa_to_Madrid(obj, color, alt_click)
+    placeTrainRoute(Lisboa_to_Madrid, color, alt_click)
+end
+function map_Madrid_to_Barcelona(obj, color, alt_click)
+    placeTrainRoute(Madrid_to_Barcelona, color, alt_click)
+end
+function map_Madrid_to_Pamplona_Black_T(obj, color, alt_click)
+    placeTrainRoute(Madrid_to_Pamplona_Black_T, color, alt_click)
+end
+function map_Madrid_to_Pamplona_White_T(obj, color, alt_click)
+    placeTrainRoute(Madrid_to_Pamplona_White_T, color, alt_click)
+end
+function map_Barcelona_to_Marseille(obj, color, alt_click)
+    placeTrainRoute(Barcelona_to_Marseille, color, alt_click)
+end
+function map_Pamplona_to_Brest(obj, color, alt_click)
+    placeTrainRoute(Pamplona_to_Brest, color, alt_click)
+end
+function map_Pamplona_to_Paris_Blue(obj, color, alt_click)
+    placeTrainRoute(Pamplona_to_Paris_Blue, color, alt_click)
+end
+function map_Pamplona_to_Paris_Green(obj, color, alt_click)
+    placeTrainRoute(Pamplona_to_Paris_Green, color, alt_click)
+end
+function map_Pamplona_to_Marseille(obj, color, alt_click)
+    placeTrainRoute(Pamplona_to_Marseille, color, alt_click)
+end
+function map_Pamplona_to_Barcelona_T(obj, color, alt_click)
+    placeTrainRoute(Pamplona_to_Barcelona_T, color, alt_click)
+end
+function map_Brest_to_Paris(obj, color, alt_click)
+    placeTrainRoute(Brest_to_Paris, color, alt_click)
+end
+function map_Brest_to_Dieppe(obj, color, alt_click)
+    placeTrainRoute(Brest_to_Dieppe, color, alt_click)
+end
+function map_Paris_to_Bruxelles_Yellow(obj, color, alt_click)
+    placeTrainRoute(Paris_to_Bruxelles_Yellow, color, alt_click)
+end
+function map_Paris_to_Bruxelles_Red(obj, color, alt_click)
+    placeTrainRoute(Paris_to_Bruxelles_Red, color, alt_click)
+end
+function map_Paris_to_Frankfurt_White(obj, color, alt_click)
+    placeTrainRoute(Paris_to_Frankfurt_White, color, alt_click)
+end
+function map_Paris_to_Frankfurt_Orange(obj, color, alt_click)
+    placeTrainRoute(Paris_to_Frankfurt_Orange, color, alt_click)
+end
+function map_Paris_to_Marseille(obj, color, alt_click)
+    placeTrainRoute(Paris_to_Marseille, color, alt_click)
+end
+function map_Paris_to_Zurich_T(obj, color, alt_click)
+    placeTrainRoute(Paris_to_Zurich_T, color, alt_click)
+end
+function map_Dieppe_to_London_F_1(obj, color, alt_click)
+    placeTrainRoute(Dieppe_to_London_F_1, color, alt_click)
+end
+function map_Dieppe_to_London_F_2(obj, color, alt_click)
+    placeTrainRoute(Dieppe_to_London_F_2, color, alt_click)
+end
+function map_Dieppe_to_Paris(obj, color, alt_click)
+    placeTrainRoute(Dieppe_to_Paris, color, alt_click)
+end
+function map_Dieppe_to_Bruxelles(obj, color, alt_click)
+    placeTrainRoute(Dieppe_to_Bruxelles, color, alt_click)
+end
+function map_Bruxelles_to_Amsterdam(obj, color, alt_click)
+    placeTrainRoute(Bruxelles_to_Amsterdam, color, alt_click)
+end
+function map_Bruxelles_to_Frankfurt(obj, color, alt_click)
+    placeTrainRoute(Bruxelles_to_Frankfurt, color, alt_click)
+end
+function map_London_to_Edinburgh_Black(obj, color, alt_click)
+    placeTrainRoute(London_to_Edinburgh_Black, color, alt_click)
+end
+function map_London_to_Edinburgh_Orange(obj, color, alt_click)
+    placeTrainRoute(London_to_Edinburgh_Orange, color, alt_click)
+end
+function map_London_to_Amsterdam(obj, color, alt_click)
+    placeTrainRoute(London_to_Amsterdam, color, alt_click)
+end
+function map_Amsterdam_to_Essen(obj, color, alt_click)
+    placeTrainRoute(Amsterdam_to_Essen, color, alt_click)
+end
+function map_Amsterdam_to_Frankfurt(obj, color, alt_click)
+    placeTrainRoute(Amsterdam_to_Frankfurt, color, alt_click)
+end
+function map_Frankfurt_to_Berlin_Black(obj, color, alt_click)
+    placeTrainRoute(Frankfurt_to_Berlin_Black, color, alt_click)
+end
+function map_Frankfurt_to_Berlin_Red(obj, color, alt_click)
+    placeTrainRoute(Frankfurt_to_Berlin_Red, color, alt_click)
+end
+function map_Frankfurt_to_Munchen(obj, color, alt_click)
+    placeTrainRoute(Frankfurt_to_Munchen, color, alt_click)
+end
+function map_Frankfurt_to_Essen(obj, color, alt_click)
+    placeTrainRoute(Frankfurt_to_Essen, color, alt_click)
+end
+function map_Essen_to_Kobenhavn_F_1(obj, color, alt_click)
+    placeTrainRoute(Essen_to_Kobenhavn_F_1, color, alt_click)
+end
+function map_Essen_to_Kobenhavn_F_2(obj, color, alt_click)
+    placeTrainRoute(Essen_to_Kobenhavn_F_2, color, alt_click)
+end
+function map_Essen_to_Berlin(obj, color, alt_click)
+    placeTrainRoute(Essen_to_Berlin, color, alt_click)
+end
+function map_Berlin_to_Warszawa_Pink(obj, color, alt_click)
+    placeTrainRoute(Berlin_to_Warszawa_Pink, color, alt_click)
+end
+function map_Berlin_to_Warszawa_Yellow(obj, color, alt_click)
+    placeTrainRoute(Berlin_to_Warszawa_Yellow, color, alt_click)
+end
+function map_Berlin_to_Danzig(obj, color, alt_click)
+    placeTrainRoute(Berlin_to_Danzig, color, alt_click)
+end
+function map_Berlin_to_Wien(obj, color, alt_click)
+    placeTrainRoute(Berlin_to_Wien, color, alt_click)
+end
+function map_Zurich_to_Munchen_T(obj, color, alt_click)
+    placeTrainRoute(Zurich_to_Munchen_T, color, alt_click)
+end
+function map_Zurich_to_Venezia_T(obj, color, alt_click)
+    placeTrainRoute(Zurich_to_Venezia_T, color, alt_click)
+end
+function map_Zurich_to_Marseille_T(obj, color, alt_click)
+    placeTrainRoute(Zurich_to_Marseille_T, color, alt_click)
+end
+function map_Marseille_to_Roma_T(obj, color, alt_click)
+    placeTrainRoute(Marseille_to_Roma_T, color, alt_click)
+end
+function map_Munchen_to_Venezia_T(obj, color, alt_click)
+    placeTrainRoute(Munchen_to_Venezia_T, color, alt_click)
+end
+function map_Munchen_to_Wien(obj, color, alt_click)
+    placeTrainRoute(Munchen_to_Wien, color, alt_click)
+end
+function map_Venezia_to_Zagrab(obj, color, alt_click)
+    placeTrainRoute(Venezia_to_Zagrab, color, alt_click)
+end
+function map_Venezia_to_Roma(obj, color, alt_click)
+    placeTrainRoute(Venezia_to_Roma, color, alt_click)
+end
+function map_Roma_to_Palermo_F(obj, color, alt_click)
+    placeTrainRoute(Roma_to_Palermo_F, color, alt_click)
+end
+function map_Roma_to_Brindisi(obj, color, alt_click)
+    placeTrainRoute(Roma_to_Brindisi, color, alt_click)
+end
+function map_Brindinsi_to_Athina(obj, color, alt_click)
+    placeTrainRoute(Brindinsi_to_Athina, color, alt_click)
+end
+function map_Palermo_to_Brindisi(obj, color, alt_click)
+    placeTrainRoute(Palermo_to_Brindisi, color, alt_click)
+end
+function map_Palermo_to_Smyrna(obj, color, alt_click)
+    placeTrainRoute(Palermo_to_Smyrna, color, alt_click)
+end
+function map_Kobenhavn_to_Stockholm_Yellow(obj, color, alt_click)
+    placeTrainRoute(Kobenhavn_to_Stockholm_Yellow, color, alt_click)
+end
+function map_Kobenhavn_to_Stockholm_White(obj, color, alt_click)
+    placeTrainRoute(Kobenhavn_to_Stockholm_White, color, alt_click)
+end
+function map_Stockholm_to_Petrograd_T(obj, color, alt_click)
+    placeTrainRoute(Stockholm_to_Petrograd_T, color, alt_click)
+end
+function map_Wien_to_Warszawa(obj, color, alt_click)
+    placeTrainRoute(Wien_to_Warszawa, color, alt_click)
+end
+function map_Wien_to_Budapest_Red(obj, color, alt_click)
+    placeTrainRoute(Wien_to_Budapest_Red, color, alt_click)
+end
+function map_Wien_to_Budapest_White(obj, color, alt_click)
+    placeTrainRoute(Wien_to_Budapest_White, color, alt_click)
+end
+function map_Wien_to_Zagrab(obj, color, alt_click)
+    placeTrainRoute(Wien_to_Zagrab, color, alt_click)
+end
+function map_Zagrab_to_Budapest(obj, color, alt_click)
+    placeTrainRoute(Zagrab_to_Budapest, color, alt_click)
+end
+function map_Zagrab_to_Sarajevo(obj, color, alt_click)
+    placeTrainRoute(Zagrab_to_Sarajevo, color, alt_click)
+end
+function map_Danzig_to_Riga(obj, color, alt_click)
+    placeTrainRoute(Danzig_to_Riga, color, alt_click)
+end
+function map_Danzig_to_Warszawa(obj, color, alt_click)
+    placeTrainRoute(Danzig_to_Warszawa, color, alt_click)
+end
+function map_Warszawa_to_Wilno(obj, color, alt_click)
+    placeTrainRoute(Warszawa_to_Wilno, color, alt_click)
+end
+function map_Warszawa_to_Kyiv(obj, color, alt_click)
+    placeTrainRoute(Warszawa_to_Kyiv, color, alt_click)
+end
+function map_Budapest_to_Kyiv_T(obj, color, alt_click)
+    placeTrainRoute(Budapest_to_Kyiv_T, color, alt_click)
+end
+function map_Budapest_to_Bucuresti_T(obj, color, alt_click)
+    placeTrainRoute(Budapest_to_Bucuresti_T, color, alt_click)
+end
+function map_Budapest_to_Sarajevo(obj, color, alt_click)
+    placeTrainRoute(Budapest_to_Sarajevo, color, alt_click)
+end
+function map_Sarajevo_to_Sofia(obj, color, alt_click)
+    placeTrainRoute(Sarajevo_to_Sofia, color, alt_click)
+end
+function map_Sarajevo_to_Athina(obj, color, alt_click)
+    placeTrainRoute(Sarajevo_to_Athina, color, alt_click)
+end
+function map_Riga_to_Petrograd(obj, color, alt_click)
+    placeTrainRoute(Riga_to_Petrograd, color, alt_click)
+end
+function map_Riga_to_Wilno(obj, color, alt_click)
+    placeTrainRoute(Riga_to_Wilno, color, alt_click)
+end
+function map_Bucuresti_to_Kyiv(obj, color, alt_click)
+    placeTrainRoute(Bucuresti_to_Kyiv, color, alt_click)
+end
+function map_Bucuresti_to_Sevastopol(obj, color, alt_click)
+    placeTrainRoute(Bucuresti_to_Sevastopol, color, alt_click)
+end
+function map_Bucuresti_to_Constantinople(obj, color, alt_click)
+    placeTrainRoute(Bucuresti_to_Constantinople, color, alt_click)
+end
+function map_Bucuresti_to_Sofia(obj, color, alt_click)
+    placeTrainRoute(Bucuresti_to_Sofia, color, alt_click)
+end
+function map_Sofia_to_Constantinople(obj, color, alt_click)
+    placeTrainRoute(Sofia_to_Constantinople, color, alt_click)
+end
+function map_Sofia_to_Athina(obj, color, alt_click)
+    placeTrainRoute(Sofia_to_Athina, color, alt_click)
+end
+function map_Athina_to_Smyrna_F(obj, color, alt_click)
+    placeTrainRoute(Athina_to_Smyrna_F, color, alt_click)
+end
+function map_Wilno_to_Petrograd(obj, color, alt_click)
+    placeTrainRoute(Wilno_to_Petrograd, color, alt_click)
+end
+function map_Wilno_to_Smolensk(obj, color, alt_click)
+    placeTrainRoute(Wilno_to_Smolensk, color, alt_click)
+end
+function map_Wilno_to_Kyiv(obj, color, alt_click)
+    placeTrainRoute(Wilno_to_Kyiv, color, alt_click)
+end
+function map_Kyiv_to_Smolensk(obj, color, alt_click)
+    placeTrainRoute(Kyiv_to_Smolensk, color, alt_click)
+end
+function map_Kyiv_to_Kharkov(obj, color, alt_click)
+    placeTrainRoute(Kyiv_to_Kharkov, color, alt_click)
+end
+function map_Constantinople_to_Sevastopol_F(obj, color, alt_click)
+    placeTrainRoute(Constantinople_to_Sevastopol_F, color, alt_click)
+end
+function map_Constantinople_to_Angora_T(obj, color, alt_click)
+    placeTrainRoute(Constantinople_to_Angora_T, color, alt_click)
+end
+function map_Constantinople_to_Smyrna_T(obj, color, alt_click)
+    placeTrainRoute(Constantinople_to_Smyrna_T, color, alt_click)
+end
+function map_Smyrna_to_Angora_T(obj, color, alt_click)
+    placeTrainRoute(Smyrna_to_Angora_T, color, alt_click)
+end
+function map_Angora_to_Erzurum(obj, color, alt_click)
+    placeTrainRoute(Angora_to_Erzurum, color, alt_click)
+end
+function map_Petrograd_to_Moskva(obj, color, alt_click)
+    placeTrainRoute(Petrograd_to_Moskva, color, alt_click)
+end
+function map_Smolensk_to_Moskva(obj, color, alt_click)
+    placeTrainRoute(Smolensk_to_Moskva, color, alt_click)
+end
+function map_Moskva_to_Kharkov(obj, color, alt_click)
+    placeTrainRoute(Moskva_to_Kharkov, color, alt_click)
+end
+function map_Kharkov_to_Rostov(obj, color, alt_click)
+    placeTrainRoute(Kharkov_to_Rostov, color, alt_click)
+end
+function map_Sevastopol_to_Rostov(obj, color, alt_click)
+    placeTrainRoute(Sevastopol_to_Rostov, color, alt_click)
+end
+function map_Sevastopol_to_Sochi_F(obj, color, alt_click)
+    placeTrainRoute(Sevastopol_to_Sochi_F, color, alt_click)
+end
+function map_Sevastopol_to_Erzurum_F(obj, color, alt_click)
+    placeTrainRoute(Sevastopol_to_Erzurum_F, color, alt_click)
+end
+function map_Rostov_to_Sochi(obj, color, alt_click)
+    placeTrainRoute(Rostov_to_Sochi, color, alt_click)
+end
+function map_Sochi_to_Erzurum_T(obj, color, alt_click)
+    placeTrainRoute(Sochi_to_Erzurum_T, color, alt_click)
+end
+
+errColor = {r=1, g=0, b=0}
+
+
+redTrainCounter = '532e64'
+orangeTrainCounter = '836fbd'
+yellowTrainCounter = '90205e'
+purpleTrainCounter = '5337c9'
+blueTrainCounter = 'ea8b9e'
+greenTrainCounter = 'c8e4ee'
+allTrainCounters = {[1] = redTrainCounter, [2] = orangeTrainCounter, [3] = yellowTrainCounter, [4] = purpleTrainCounter, [5] = blueTrainCounter, [6] = greenTrainCounter}
+
+-- Cadiz_to_Madrid = 3 Orange
+Cadiz_to_Madrid = {'84afd7', 'd521c6', '21a2b9'}
+-- Lisboa_to_Cadiz = 2 Blue
+Lisboa_to_Cadiz = {'56a704', 'eb03b7'}
+-- Lisboa_to_Madrid = 3 Pink
+Lisboa_to_Madrid =  {'72e43d', 'e66788', '1cba4f'}
+-- Madrid_to_Barcelona = 2 Yellow
+Madrid_to_Barcelona =  {'fb7b23','6d3ed0'}
+-- Madrid_to_Pamplona_Black_T = 3 Black, Tunnel
+Madrid_to_Pamplona_Black_T =  {'9f8428','f733c6', '8ac537'}
+-- Madrid_to_Pamplona_White_T = 3 Black, Tunnel
+Madrid_to_Pamplona_White_T =  {'ab2ab4', '263b6f', '30f939'}
+-- Barcelona_to_Marseille = 4 Any
+Barcelona_to_Marseille =  {'dfe4f4', 'dae084', 'ced511', 'a8a4ca'}
+-- Pamplona_to_Brest = 4 Pink
+Pamplona_to_Brest =  {'0d6df5', '2a3767', '974725', '000050', }
+-- Pamplona_to_Paris_Blue = 4 Blue
+Pamplona_to_Paris_Blue =  {'b21a4b', '40080c', 'a08889', '600807'}
+-- Pamplona_to_Paris_Green = 4 Green
+Pamplona_to_Paris_Green =  {'1b2ffe', '779682', '8cc1ba', 'eef7ab'}
+-- Pamplona_to_Marseille = 4 Red
+Pamplona_to_Marseille =  {'977eb2', '2ef9b5', 'eec5db', '40cd01'}
+-- Pamplona_to_Barcelona_T = 2 Any, Tunnel
+Pamplona_to_Barcelona_T =  {'92c513', 'a7389b'}
+-- Brest_to_Paris = 3 Black
+Brest_to_Paris =  {'735868', '75a7c6', '9a4c1d'}
+-- Brest_to_Dieppe = 2 Orange
+Brest_to_Dieppe =  {'f926d5', '3de63a'}
+-- Paris_to_Bruxelles_Y = 2 Yellow
+Paris_to_Bruxelles_Yellow =  {'9571a3', 'd866d7'}
+-- Paris_to_Bruxelles_R = 2 Red
+Paris_to_Bruxelles_Red =  {'82474a', 'b07279'}
+-- Paris_to_Frankfurt_W = 3 White
+Paris_to_Frankfurt_White =  {'6fa5b8', 'af57d2', 'b1c578'}
+-- Paris_to_Frankfurt_O = 3 Orange
+Paris_to_Frankfurt_Orange =  {'867caa', '0c5382', 'aedb5d'}
+-- Paris_to_Marseille = 4 Any
+Paris_to_Marseille =  {'728827', '0a2b9f', '33a3a2', 'b8bc45'}
+-- Paris_to_Zurich_T = 3 Any, Tunnel
+Paris_to_Zurich_T =  {'6d65bf', '4fe154', '6f6828'}
+-- Dieppe_to_London_F_1 = 1 Ferry, 1 Any
+Dieppe_to_London_F_1 =  {'98b971', 'e72380'}
+-- Dieppe_to_London_F_2 = 1 Ferry, 1 Any
+Dieppe_to_London_F_2 =  {'44a2ad', '7924af'}
+-- Dieppe_to_Paris = 1 Pink
+Dieppe_to_Paris =  {'2d09f0'}
+-- Dieppe_to_Bruxelles = 2 Green
+Dieppe_to_Bruxelles =  {'d0991c', '111ac7'}
+-- Bruxelles_to_Amsterdam = 1 Black
+Bruxelles_to_Amsterdam =  {'c5bb01'}
+-- Bruxelles_to_Frankfurt = 2 Blue
+Bruxelles_to_Frankfurt =  {'38710b', '10978c'}
+-- London_to_Edinburgh_Black = 4 Black
+London_to_Edinburgh_Black =  {'a50ca7', '19239b', '45a0d6', '743609'}
+-- London_to_Edinburgh_Orange = 4 Orange
+London_to_Edinburgh_Orange =  {'b9b228', '8d1a07', '3d5300', 'a746e4'}
+-- London_to_Amsterdam = 2 Ferry
+London_to_Amsterdam =  {'34023c', '8eeaad'}
+-- Amsterdam_to_Essen = 3 Yellow
+Amsterdam_to_Essen =  {'5155e2', 'e36a83', 'c9238a'}
+-- Amsterdam_to_Frankfurt = 2 White
+Amsterdam_to_Frankfurt =  {'dc12b6', '4ae1e8'}
+-- Frankfurt_to_Berlin_B = 3 Black
+Frankfurt_to_Berlin_Black =  {'df72a7', 'd4218f', '19b264'}
+-- Frankfurt_to_Berlin_R = 3 Red
+Frankfurt_to_Berlin_Red =  {'668dc5', '68a86e', '21e638'}
+-- Frankfurt_to_Munchen = 2 Pink
+Frankfurt_to_Munchen =  {'13bad1', 'bb1695'}
+-- Frankfurt_to_Essen = 2 Green
+Frankfurt_to_Essen =  {'85ea50', '7a8201'}
+-- Essen_to_Kobenhavn_F_1 = 1 Ferry, 2 Any
+Essen_to_Kobenhavn_F_1 =  {'ede720', 'fbe336', '58390b'}
+-- Essen_to_Kobenhavn_F_2 = 1 Ferry, 2 Any
+Essen_to_Kobenhavn_F_2 =  {'d3be90', '2e5855', '9f66bf'}
+-- Essen_to_Berlin = 2 Blue
+Essen_to_Berlin =  {'25a26c', 'bf45de'}
+-- Berlin_to_Warszawa_P = 4 Pink
+Berlin_to_Warszawa_Pink =  {'672a33', '6502e5', '0b7657', '6133f8'}
+-- Berlin_to_Warszawa_Y = 4 Yellow
+Berlin_to_Warszawa_Yellow =  {'4fcc58', 'c1f698', '7cc254', '2c6855'}
+-- Berlin_to_Danzig = 4 Any
+Berlin_to_Danzig =  {'e649b6', '948d77', '2066fd', '36ff1e'}
+-- Berlin_to_Wien = 3 Green
+Berlin_to_Wien =  {'232f84', 'ffd83c', '541988'}
+-- Zurich_to_Munchen_T = 2 Yellow, Tunnel
+Zurich_to_Munchen_T =  {'f6650c', '778b8f'}
+-- Zurich_to_Venezia_T = 2 Green, Tunnel
+Zurich_to_Venezia_T =  {'6b7f78', '51221e'}
+-- Zurich_to_Marseille_T = 2 Pink, Tunnel
+Zurich_to_Marseille_T =  {'7b31a5', 'e394a1'}
+-- Marseille_to_Roma_T = 4 Any
+Marseille_to_Roma_T =  {'bb698d', '6cdfff', 'b53a29', '57c355'}
+-- Munchen_to_Venezia_T = 2 Blue
+Munchen_to_Venezia_T =  {'4adb4b', '010f0a'}
+-- Munchen_to_Wien = 3 Orange
+Munchen_to_Wien =  {'23a835', '1d27fc', 'd69afe'}
+-- Venezia_to_Zagrab = 2 Any
+Venezia_to_Zagrab =  {'5d2b2d', '5b2124'}
+-- Venezia_to_Roma = 2 Black
+Venezia_to_Roma =  {'c6b78c', '987571'}
+-- Roma_to_Palermo_F = 1 Ferry, 3 Any
+Roma_to_Palermo_F =  {'540770', '727a65', '3e5755', '1d37d1'}
+-- Roma_to_Brindisi = 2 White
+Roma_to_Brindisi =  {'43614b', '032a7d'}
+-- Brindinsi_to_Athina = 1 Ferry, 3 Any
+Brindinsi_to_Athina =  {'8bf0da', '1afd62', '81a1b9', '0c18d4'}
+-- Palermo_to_Brindisi = 1 Ferry, 2 Any
+Palermo_to_Brindisi =  {'13238b', 'bab727', 'a47bc4'}
+-- Palermo_to_Smyrna = 2 Ferry, 4 Any
+Palermo_to_Smyrna =  {'3eed4a', 'd4e669', '834cab', 'c8f193', '5b7edb', '89d11b'}
+-- Kobenhavn_to_Stockholm_Y = 3 Yellow
+Kobenhavn_to_Stockholm_Yellow =  {'85ca44', 'f864f6', '834ed1'}
+-- Kobenhavn_to_Stockholm_W = 3 White
+Kobenhavn_to_Stockholm_White =  {'08c270', 'c5eba6', '52e2c2'}
+-- Stockholm_to_Petrograd_T = 8 Any, Tunnel
+Stockholm_to_Petrograd_T =  {'a9514e', 'b76e84', '02e53a', '10966a', 'c7c4a1', '76f594', '206051', '55a38f'}
+-- Wien_to_Warszawa = 4 Blue
+Wien_to_Warszawa =  {'b9324c', 'cb8c0f', '4a9734', '7f1580'}
+-- Wien_to_Budapest_R = 1 Red
+Wien_to_Budapest_Red =  {'9b01c5'}
+-- Wien_to_Budapest_W = 1 White
+Wien_to_Budapest_White =  {'6a2c96'}
+-- Wien_to_Zagrab = 2 Any
+Wien_to_Zagrab =  {'8c45fe', '7abeff'}
+-- Zagrab_to_Budapest = 2 Orange
+Zagrab_to_Budapest =  {'7dc7bf', '2e0f4e'}
+-- Zagrab_to_Sarajevo = 3 Red
+Zagrab_to_Sarajevo =  {'eb6789', 'fae29f', 'ff23da'}
+-- Danzig_to_Riga = 3 Black
+Danzig_to_Riga =  {'46499f', 'b23fc4', 'a4cf7e'}
+-- Danzig_to_Warszawa = 2 Any
+Danzig_to_Warszawa =  {'d8651f', '0d4812'}
+-- Warszawa_to_Wilno = 3 Red
+Warszawa_to_Wilno =  {'55f36a', 'cef5a8', 'a31847'}
+-- Warszawa_to_Kyiv = 4 Any
+Warszawa_to_Kyiv =  {'d565b0', 'af3620', '4dda9a', '3530e0'}
+-- Budapest_to_Kyiv_T = 6 Any, Tunnel
+Budapest_to_Kyiv_T =  {'26ba60', '26adb5', 'd72cb1', '6ce79b', '6a2287', '643d0f'}
+-- Budapest_to_Bucuresti_T = 4 Any, Tunnel
+Budapest_to_Bucuresti_T =  {'39f230', 'a15c50', '043825', '8ad59e'}
+-- Budapest_to_Sarajevo = 3 Pink
+Budapest_to_Sarajevo =  {'4b8324', '9271e6', 'c95437'}
+-- Sarajevo_to_Sofia = 2 Any, Tunnel
+Sarajevo_to_Sofia =  {'bc0ead', 'aa6e43'}
+-- Sarajevo_to_Athina = 4 Green
+Sarajevo_to_Athina =  {'173ea3', 'fa3d0f', 'cf8735', '015ac3'}
+-- Riga_to_Petrograd = 4 Any
+Riga_to_Petrograd =  {'6ffae7', '66abbe', '9d0245', '261c9b'}
+-- Riga_to_Wilno = 4 Green
+Riga_to_Wilno =  {'eeccac', '2cc5af', '99b342', 'c0f187'}
+-- Bucuresti_to_Kyiv = 4 Any
+Bucuresti_to_Kyiv =  {'fd7471', '1e3e3e', '2bfc8d', '1c4609'}
+-- Bucuresti_to_Sevastopol = 4 White
+Bucuresti_to_Sevastopol =  {'a5ff4d', '77432c', '5d5300', '0c1973'}
+-- Bucuresti_to_Constantinople = 3 Yellow
+Bucuresti_to_Constantinople =  {'34b664', 'f6f251', '4f555a'}
+-- Bucuresti_to_Sofia = 2 Any, Tunnel
+Bucuresti_to_Sofia =  {'a003a8', '905c99'}
+-- Sofia_to_Constantinople = 3 Blue
+Sofia_to_Constantinople =  {'7e046e', 'd10390', 'b2a482'}
+-- Sofia_to_Athina = 3 Pink
+Sofia_to_Athina =  {'8ab363', '3d6463', '3d2ed3'}
+-- Athina_to_Smyrna_F = 1 Ferry, 1 Any
+Athina_to_Smyrna_F =  {'6c9698', '5f01eb'}
+-- Wilno_to_Petrograd = 4 Blue
+Wilno_to_Petrograd =  {'46937e', '324017', '817174', '36f47a'}
+-- Wilno_to_Smolensk = 3 Yellow
+Wilno_to_Smolensk =  {'90474d', 'ee1f25', '26b3be'}
+-- Wilno_to_Kyiv = 2 Any
+Wilno_to_Kyiv =  {'72101b', '6e3c60'}
+-- Kyiv_to_Smolensk = 3 Red
+Kyiv_to_Smolensk =  {'acde7f', '0ff161', 'ba02a7'}
+-- Kyiv_to_Kharkov = 4 Any
+Kyiv_to_Kharkov =  {'7b5226', '39484f', '0205d3', '7a16bf'}
+-- Constantinople_to_Sevastopol_F = 2 Ferry, 2 Any
+Constantinople_to_Sevastopol_F =  {'845566', '51dc60', '4b1266', 'abd5f2'}
+-- Constantinople_to_Angora_T = 2 Any, Tunnel
+Constantinople_to_Angora_T =  {'ef906e', 'ba71d4'}
+-- Constantinople_to_Smyrna_T = 2 Any, Tunnel
+Constantinople_to_Smyrna_T =  {'08442a', '16172a'}
+-- Smyrna_to_Angora_T = 3 Orange, Tunnel
+Smyrna_to_Angora_T =  {'0a5886', '7c94fe', '8f2253'}
+-- Angora_to_Erzurum = 3 Black
+Angora_to_Erzurum =  {'f28cde', 'b77c69', '814692'}
+-- Petrograd_to_Moskva = 4 White
+Petrograd_to_Moskva =  {'134bd2', '9abcf6', '25bd57', 'ab49c8'}
+-- Smolensk_to_Moskva = 2 Orange
+Smolensk_to_Moskva =  {'b4d790', 'e7c943'}
+-- Moskva_to_Kharkov = 4 Any
+Moskva_to_Kharkov =  {'32774c', '3f0f9d', '6708be', 'b7a67b'}
+-- Kharkov_to_Rostov = 2 Green
+Kharkov_to_Rostov =  {'074dcb', 'd4e102'}
+-- Sevastopol_to_Rostov = 4 Any
+Sevastopol_to_Rostov =  {'e895f6', '37d1f4', 'e6456e', '934890'}
+-- Sevastopol_to_Sochi_F = 1 Ferry, 1 Any
+Sevastopol_to_Sochi_F =  {'7a96c1', 'e42ff0'}
+-- Sevastopol_to_Erzurum_F = 2 Ferry, 2 Any
+Sevastopol_to_Erzurum_F =  {'f070b1', '04d6ec', '01c3f4', '7b29fb'}
+-- Rostov_to_Sochi = 2 Any
+Rostov_to_Sochi =  {'4d4d34', 'e038ea'}
+-- Sochi_to_Erzurum_T = 3 Red, Tunnel
+Sochi_to_Erzurum_T =  {'242f89', '74cdb5', '1d94f2'}
+
+AllRoutes = {Cadiz_to_Madrid, Lisboa_to_Cadiz, Lisboa_to_Madrid, Madrid_to_Barcelona, Madrid_to_Pamplona_Black_T, Madrid_to_Pamplona_White_T, Barcelona_to_Marseille, Pamplona_to_Brest, Pamplona_to_Paris_Blue, Pamplona_to_Paris_Green, Pamplona_to_Marseille, Pamplona_to_Barcelona_T, Brest_to_Paris, Brest_to_Dieppe, Paris_to_Bruxelles_Yellow, Paris_to_Bruxelles_Red, Paris_to_Frankfurt_White, Paris_to_Frankfurt_Orange, Paris_to_Marseille, Paris_to_Zurich_T, Dieppe_to_London_F_1, Dieppe_to_London_F_2, Dieppe_to_Paris, Dieppe_to_Bruxelles, Bruxelles_to_Amsterdam, Bruxelles_to_Frankfurt, London_to_Edinburgh_Black, London_to_Edinburgh_Orange, London_to_Amsterdam, Amsterdam_to_Essen, Amsterdam_to_Frankfurt, Frankfurt_to_Berlin_Black, Frankfurt_to_Berlin_Red, Frankfurt_to_Munchen, Frankfurt_to_Essen, Essen_to_Kobenhavn_F_1, Essen_to_Kobenhavn_F_2, Essen_to_Berlin, Berlin_to_Warszawa_Pink, Berlin_to_Warszawa_Yellow, Berlin_to_Danzig, Berlin_to_Wien, Zurich_to_Munchen_T, Zurich_to_Venezia_T, Zurich_to_Marseille_T, Marseille_to_Roma_T, Munchen_to_Venezia_T, Munchen_to_Wien, Venezia_to_Zagrab, Venezia_to_Roma, Roma_to_Palermo_F, Roma_to_Brindisi, Brindinsi_to_Athina, Palermo_to_Brindisi, Palermo_to_Smyrna, Kobenhavn_to_Stockholm_Yellow, Kobenhavn_to_Stockholm_White, Stockholm_to_Petrograd_T, Wien_to_Warszawa, Wien_to_Budapest_Red, Wien_to_Budapest_White, Wien_to_Zagrab, Zagrab_to_Budapest, Zagrab_to_Sarajevo, Danzig_to_Riga, Danzig_to_Warszawa, Warszawa_to_Wilno, Warszawa_to_Kyiv, Budapest_to_Kyiv_T, Budapest_to_Bucuresti_T, Budapest_to_Sarajevo, Sarajevo_to_Sofia, Sarajevo_to_Athina, Riga_to_Petrograd, Riga_to_Wilno, Bucuresti_to_Kyiv, Bucuresti_to_Sevastopol, Bucuresti_to_Constantinople, Bucuresti_to_Sofia, Sofia_to_Constantinople, Sofia_to_Athina, Athina_to_Smyrna_F, Wilno_to_Petrograd, Wilno_to_Smolensk, Wilno_to_Kyiv, Kyiv_to_Smolensk, Kyiv_to_Kharkov, Constantinople_to_Sevastopol_F, Constantinople_to_Angora_T, Constantinople_to_Smyrna_T, Smyrna_to_Angora_T, Angora_to_Erzurum, Petrograd_to_Moskva, Smolensk_to_Moskva, Moskva_to_Kharkov, Kharkov_to_Rostov, Sevastopol_to_Rostov, Sevastopol_to_Sochi_F, Sevastopol_to_Erzurum_F, Rostov_to_Sochi, Sochi_to_Erzurum_T}

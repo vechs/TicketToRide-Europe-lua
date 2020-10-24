@@ -45,34 +45,21 @@ function onLoad()
     self.interactable = false;
 
     -- Pickup Zone Buttons (1 to 5 from default camera angle)
-    self.createButton({
-        click_function = "pickupZoneButton1",
-        function_owner = self,
-        label = "Pickup",
-        position = {38, 42.8, -16},
-        rotation = {0, 270, 0},
-        width = 2000,
-        height = 500,
-        font_size = 400,
-        alignment = 3
-    })
-
-
-
-    self.createButton({click_function = "pickupZoneButton2", function_owner = self, label = "Pickup", position = {38, 42.8, -8}, rotation = {0, 270, 0}, width = 2000, height = 500, font_size = 400, alignment = 3})
-    self.createButton({click_function = "pickupZoneButton3", function_owner = self, label = "Pickup", position = {38, 42.8, 0}, rotation = {0, 270, 0}, width = 2000, height = 500, font_size = 400, alignment = 3})
-    self.createButton({click_function = "pickupZoneButton4", function_owner = self, label = "Pickup", position = {38, 42.8, 8}, rotation = {0, 270, 0}, width = 2000, height = 500, font_size = 400, alignment = 3})
-    self.createButton({click_function = "pickupZoneButton5", function_owner = self, label = "Pickup", position = {38, 42.8, 16}, rotation = {0, 270, 0}, width = 2000, height = 500, font_size = 400, alignment = 3})
+    self.createButton({click_function = "pickupZoneButton1",function_owner = self,label = "Pickup",position = {42, 42.8, -19},rotation = {0, 0, 0},width = 3300,height = 800,font_size = 600,alignment = 3})
+    self.createButton({click_function = "pickupZoneButton2", function_owner = self, label = "Pickup", position = {42, 42.8, -11}, rotation = {0, 0, 0}, width = 3300, height = 800, font_size = 600, alignment = 3})
+    self.createButton({click_function = "pickupZoneButton3", function_owner = self, label = "Pickup", position = {42, 42.8, -3}, rotation = {0, 0, 0}, width = 3300, height = 800, font_size = 600, alignment = 3})
+    self.createButton({click_function = "pickupZoneButton4", function_owner = self, label = "Pickup", position = {42, 42.8, 5}, rotation = {0, 0, 0}, width = 3300, height = 800, font_size = 600, alignment = 3})
+    self.createButton({click_function = "pickupZoneButton5", function_owner = self, label = "Pickup", position = {42, 42.8, 13}, rotation = {0, 0, 0}, width = 3300, height = 800, font_size = 600, alignment = 3})
 
     -- Draw Buttons 1 & 2
-    self.createButton({click_function = "drawTrainZoneButtonSingle", function_owner = self, label = "Draw 1", position = {52.3, 43.8, 4}, width = 2000, height = 400, font_size = 400, alignment = 3})
-    self.createButton({click_function = "drawTrainZoneButtonDouble", function_owner = self, label = "Draw 2", position = {52.3, 43.8, 5}, width = 2000, height = 400, font_size = 400, alignment = 3})
+    self.createButton({click_function = "drawTrainZoneButtonSingle", function_owner = self, label = "Draw 1", position = {52.5, 44.8, -1}, width = 2000, height = 1000, font_size = 600, alignment = 3})
+    self.createButton({click_function = "drawTrainZoneButtonDouble", function_owner = self, label = "Draw 2", position = {52.5, 44.8, 1}, width = 2000, height = 1000, font_size = 600, alignment = 3})
 
     -- Setup Button
-    self.createButton({click_function = "gameSetupButton", function_owner = self, label = "Setup Game", position = {54.4, 43.8, -10}, width = 3800, height = 700, font_size = 400, color = {0, 0.9622, 1, 1}, alignment = 3})
+    self.createButton({click_function = "gameSetupButton", function_owner = self, label = "Setup Game", position = {54.4, 43.8, -10}, width = 3800, height = 800, font_size = 600, color = {0, 0.9622, 1, 1}, alignment = 3})
 
     -- Draw Tickets
-    self.createButton({click_function = "drawTicketsButton", function_owner = self, label = "Draw 3 Tickets", position = {-42, 42.8, -3}, width = 3100, height = 500, font_size = 400, alignment = 3})
+    self.createButton({click_function = "drawTicketsButton", function_owner = self, label = "Draw Tickets", position = {-42, 42.8, -3}, width = 3300, height = 800, font_size = 600, alignment = 3})
 end
 
 function gameSetupButton()
@@ -106,7 +93,7 @@ function gameSetupButton()
 
     for i=1, 5 do
         params.position = smoothSetupVecArray[i]
-        params.rotation = Vector(0,-90,0)
+        params.rotation = Vector(0,90,0)
         obj = drawDeck.takeObject(params)
     end
     return nil
