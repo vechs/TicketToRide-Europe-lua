@@ -10,8 +10,7 @@ function onLoad()
     position = {-15.5, 10, -5},
     rotation = {180, 270, 80},
     font_size = 75
-})
-
+    })
 end
 
 function onButtonClick()

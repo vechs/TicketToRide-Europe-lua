@@ -1,6 +1,5 @@
 function onLoad()
     maxTrainsPerPlayer = 45
-    Player["White"].changeColor("Red")
     for i, v in ipairs(allTrainCounters) do
         obj = getObjectFromGUID(v)
         obj.setValue(maxTrainsPerPlayer)
@@ -17,66 +16,169 @@ function onLoad()
         end
     end
     
-    self.createButton({click_function = "map_Cadiz_to_Madrid", function_owner = self, label = " ", position = {-1.6, 0.1, 1.2}, scale = {0.2, 0.2, 0.2}, width = 400, height = 600, font_size = 400, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Cadiz to Madrid"})
-    self.createButton({click_function = "map_Lisboa_to_Madrid", function_owner = self, label = " ", position = {-1.95, 0.1, 0.95}, scale = {0.5, 0.5, 0.5}, width = 400, height = 300, font_size = 400, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Lisboa to Madrid", alignment = 2})
-    self.createButton({click_function = "map_Lisboa_to_Cadiz", function_owner = self, label = " ", position = {-1.95, 0.1, 1.25}, scale = {0.5, 0.5, 0.5}, width = 400, height = 300, font_size = 400, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Lisboa to Cadiz", alignment = 2})
-    self.createButton({click_function = "map_Marseille_to_Roma_T", function_owner = self, label = " ", position = {-0.4, 0.1, 0.6}, scale = {0.5, 0.5, 0.5}, width = 400, height = 300, font_size = 400, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Marseille to Roma", alignment = 2})
-    self.createButton({click_function = "map_Madrid_to_Pamplona_Black_T", function_owner = self, label = " ", position = {-1.6, 0.1, 0.8}, rotation = {0, 135, 0}, scale = {0.6, 0.5, 0.1}, width = 400, height = 300, font_size = 400, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Madrid to Pamplona (Black/Tunnel)", alignment = 2})
-    self.createButton({click_function = "map_Madrid_to_Pamplona_White_T", function_owner = self, label = " ", position = {-1.55, 0.1, 0.88}, rotation = {0, 135, 0}, scale = {0.6, 0.5, 0.1}, width = 400, height = 300, font_size = 400, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Madrid to Pamplona (White/Tunnel)", alignment = 2})
-    self.createButton({click_function = "map_Madrid_to_Barcelona", function_owner = self, label = " ", position = {-1.48, 0.1, 1.03}, scale = {0.4, 0.5, 0.1}, width = 400, height = 300, font_size = 400, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Madrid to Barcelona", alignment = 2})
-    self.createButton({click_function = "map_Pamplona_to_Barcelona_T", function_owner = self, label = " ", position = {-1.3, 0.1, 0.85}, rotation = {0, 85, 0}, scale = {0.4, 0.5, 0.1}, width = 400, height = 300, font_size = 400, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Pamplona to Barcelona", alignment = 2})
-    self.createButton({click_function = "map_Pamplona_to_Paris_Blue", function_owner = self, label = " ", position = {-1.23, 0.1, 0.34}, rotation = {0, 112, 0}, scale = {0.8, 0.5, 0.15}, width = 400, height = 300, font_size = 400, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Pamplona to Paris (Blue)", alignment = 2})
-    self.createButton({click_function = "map_Pamplona_to_Paris_Green", function_owner = self, label = " ", position = {-1.16, 0.1, 0.34}, rotation = {0, 112, 0}, scale = {0.8, 0.5, 0.15}, width = 400, height = 300, font_size = 400, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Pamplona to Paris (Green)", alignment = 2})
-    self.createButton({click_function = "map_Pamplona_to_Marseille", function_owner = self, label = " ", position = {-1.02, 0.1, 0.6}, rotation = {0, 170, 0}, scale = {0.7, 0.5, 0.25}, width = 400, height = 300, font_size = 400, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Pamplona to Marseille", alignment = 2})
-    self.createButton({click_function = "map_Barcelona_to_Marseille", function_owner = self, label = " ", position = {-1, 0.1, 0.8}, rotation = {0, 145, 0}, scale = {0.8, 0.5, 0.2}, width = 400, height = 300, font_size = 400, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Barcelona to Marseille", alignment = 2})
-    self.createButton({click_function = "map_Pamplona_to_Brest", function_owner = self, label = " ", position = {-1.48, 0.1, 0.24}, rotation = {0, 75, 0}, scale = {0.62, 0.5, 0.75}, width = 450, height = 200, font_size = 400, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Pamplona to Brest", alignment = 2})
-    self.createButton({click_function = "map_Frankfurt_to_Berlin_Red", function_owner = self, label = " ", position = {-0.26, 0.1, -0.3}, rotation = {0, 155, 0}, scale = {0.6, 0.5, -0.1}, width = 400, height = 300, font_size = 400, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Frankfurt to Berlin (Red)", alignment = 2})
-    self.createButton({click_function = "map_Frankfurt_to_Berlin_Black", function_owner = self, label = " ", position = {-0.29, 0.1, -0.35}, rotation = {0, 155, 0}, scale = {0.6, 0.5, -0.1}, width = 400, height = 300, font_size = 400, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Frankfurt to Berlin (Black)", alignment = 2})
-    self.createButton({click_function = "map_Paris_to_Frankfurt_White", function_owner = self, label = " ", position = {-0.77, 0.1, -0.11}, rotation = {0, 150, 0}, scale = {0.6, 0.5, -0.1}, width = 400, height = 300, font_size = 400, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Paris to Frankfurt (White)", alignment = 2})
-    self.createButton({click_function = "map_Paris_to_Frankfurt_Orange", function_owner = self, label = " ", position = {-0.74, 0.1, -0.07}, rotation = {0, 150, 0}, scale = {0.6, 0.5, -0.1}, width = 400, height = 300, font_size = 400, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Paris to Frankfurt (Orange)", alignment = 2})
-    self.createButton({click_function = "map_Paris_to_Bruxelles_Yellow", function_owner = self, label = " ", position = {-1, 0.1, -0.2}, rotation = {0, 120, 0}, scale = {0.4, 0.5, -0.1}, width = 400, height = 300, font_size = 400, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Paris to Bruxelles (Yellow)", alignment = 2})
-    self.createButton({click_function = "map_Paris_to_Bruxelles_Red", function_owner = self, label = " ", position = {-0.94, 0.1, -0.18}, rotation = {0, 120, 0}, scale = {0.4, 0.5, -0.1}, width = 400, height = 300, font_size = 400, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Paris to Bruxelles (Red)", alignment = 2})
-    self.createButton({click_function = "map_Bruxelles_to_Amsterdam", function_owner = self, label = " ", position = {-0.851, 0.1, -0.47}, rotation = {0, 120, 0}, scale = {0.2, 0.5, -0.1}, width = 400, height = 300, font_size = 400, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Bruxelles to Amsterdam", alignment = 2})
-
-    --TODO - Replace all these buttons
-    self.createButton({click_function = "map_Brest_to_Paris", function_owner = self, label = "Brest_to_Paris", position = {-3.5, 1, -1.4}, scale = {0.1, 0.1, 0.1}, width = 3000, height = 500, font_size = 400, tooltip = "Brest_to_Paris", alignment = 2})
-    self.createButton({click_function = "map_Brest_to_Dieppe", function_owner = self, label = "Brest_to_Dieppe", position = {-3.5, 1, -1.3}, scale = {0.1, 0.1, 0.1}, width = 3000, height = 500, font_size = 400, tooltip = "Brest_to_Dieppe", alignment = 2})
-    self.createButton({click_function = "map_Paris_to_Marseille", function_owner = self, label = "Paris_to_Marseille", position = {-3.5, 1, -1.2}, scale = {0.1, 0.1, 0.1}, width = 3000, height = 500, font_size = 400, tooltip = "Paris_to_Marseille", alignment = 2})
-    self.createButton({click_function = "map_Paris_to_Zurich_T", function_owner = self, label = "Paris_to_Zurich_T", position = {-3.5, 1, -1.1}, scale = {0.1, 0.1, 0.1}, width = 3000, height = 500, font_size = 400, tooltip = "Paris_to_Zurich_T", alignment = 2})
-    self.createButton({click_function = "map_Dieppe_to_London_F_1", function_owner = self, label = "Dieppe_to_London_F_1", position = {-3.5, 1, -1.0}, scale = {0.1, 0.1, 0.1}, width = 3000, height = 500, font_size = 400, tooltip = "Dieppe_to_London_F_1", alignment = 2})
-    self.createButton({click_function = "map_Dieppe_to_London_F_2", function_owner = self, label = "Dieppe_to_London_F_2", position = {-3.5, 1, -0.9}, scale = {0.1, 0.1, 0.1}, width = 3000, height = 500, font_size = 400, tooltip = "Dieppe_to_London_F_2", alignment = 2})
-    self.createButton({click_function = "map_Dieppe_to_Paris", function_owner = self, label = "Dieppe_to_Paris", position = {-3.5, 1, -0.8}, scale = {0.1, 0.1, 0.1}, width = 3000, height = 500, font_size = 400, tooltip = "Dieppe_to_Paris", alignment = 2})
-    self.createButton({click_function = "map_Dieppe_to_Bruxelles", function_owner = self, label = "Dieppe_to_Bruxelles", position = {-3.5, 1, -0.7}, scale = {0.1, 0.1, 0.1}, width = 3000, height = 500, font_size = 400, tooltip = "Dieppe_to_Bruxelles", alignment = 2})
-    self.createButton({click_function = "map_Bruxelles_to_Amsterdam", function_owner = self, label = "Bruxelles_to_Amsterdam", position = {-3.5, 1, -0.6}, scale = {0.1, 0.1, 0.1}, width = 3000, height = 500, font_size = 400, tooltip = "Bruxelles_to_Amsterdam", alignment = 2})
-    self.createButton({click_function = "map_Bruxelles_to_Frankfurt", function_owner = self, label = "Bruxelles_to_Frankfurt", position = {-3.5, 1, -0.5}, scale = {0.1, 0.1, 0.1}, width = 3000, height = 500, font_size = 400, tooltip = "Bruxelles_to_Frankfurt", alignment = 2})
-    self.createButton({click_function = "map_London_to_Edinburgh_Black", function_owner = self, label = "London_to_Edinburgh_Black", position = {-3.5, 1, -0.4}, scale = {0.1, 0.1, 0.1}, width = 3000, height = 500, font_size = 400, tooltip = "London_to_Edinburgh_Black", alignment = 2})
-    self.createButton({click_function = "map_London_to_Edinburgh_Orange", function_owner = self, label = "London_to_Edinburgh_Orange", position = {-3.5, 1, -0.3}, scale = {0.1, 0.1, 0.1}, width = 3000, height = 500, font_size = 400, tooltip = "London_to_Edinburgh_Orange", alignment = 2})
-    self.createButton({click_function = "map_London_to_Amsterdam", function_owner = self, label = "London_to_Amsterdam", position = {-3.5, 1, -0.2}, scale = {0.1, 0.1, 0.1}, width = 3000, height = 500, font_size = 400, tooltip = "London_to_Amsterdam", alignment = 2})
-    self.createButton({click_function = "map_Amsterdam_to_Essen", function_owner = self, label = "Amsterdam_to_Essen", position = {-3.5, 1, -0.1}, scale = {0.1, 0.1, 0.1}, width = 3000, height = 500, font_size = 400, tooltip = "Amsterdam_to_Essen", alignment = 2})
-    self.createButton({click_function = "map_Amsterdam_to_Frankfurt", function_owner = self, label = "Amsterdam_to_Frankfurt", position = {-3.5, 1, 0}, scale = {0.1, 0.1, 0.1}, width = 3000, height = 500, font_size = 400, tooltip = "Amsterdam_to_Frankfurt", alignment = 2})
-    self.createButton({click_function = "map_Frankfurt_to_Munchen", function_owner = self, label = "Frankfurt_to_Munchen", position = {-3.5, 1, 0.1}, scale = {0.1, 0.1, 0.1}, width = 3000, height = 500, font_size = 400, tooltip = "Frankfurt_to_Munchen", alignment = 2})
-    self.createButton({click_function = "map_Frankfurt_to_Essen", function_owner = self, label = "Frankfurt_to_Essen", position = {-3.5, 1, 0.2}, scale = {0.1, 0.1, 0.1}, width = 3000, height = 500, font_size = 400, tooltip = "Frankfurt_to_Essen", alignment = 2})
-    self.createButton({click_function = "map_Essen_to_Kobenhavn_F_1", function_owner = self, label = "Essen_to_Kobenhavn_F_1", position = {-3.5, 1, 0.3}, scale = {0.1, 0.1, 0.1}, width = 3000, height = 500, font_size = 400, tooltip = "Essen_to_Kobenhavn_F_1", alignment = 2})
-    self.createButton({click_function = "map_Essen_to_Kobenhavn_F_2", function_owner = self, label = "Essen_to_Kobenhavn_F_2", position = {-3.5, 1, 0.4}, scale = {0.1, 0.1, 0.1}, width = 3000, height = 500, font_size = 400, tooltip = "Essen_to_Kobenhavn_F_2", alignment = 2})
-    self.createButton({click_function = "map_Essen_to_Berlin", function_owner = self, label = "Essen_to_Berlin", position = {-3.5, 1, 0.5}, scale = {0.1, 0.1, 0.1}, width = 3000, height = 500, font_size = 400, tooltip = "Essen_to_Berlin", alignment = 2})
-    self.createButton({click_function = "map_Berlin_to_Warszawa_Pink", function_owner = self, label = "Berlin_to_Warszawa_Pink", position = {-3.5, 1, 0.6}, scale = {0.1, 0.1, 0.1}, width = 3000, height = 500, font_size = 400, tooltip = "Berlin_to_Warszawa_Pink", alignment = 2})
-    self.createButton({click_function = "map_Berlin_to_Warszawa_Yellow", function_owner = self, label = "Berlin_to_Warszawa_Yellow", position = {-3.5, 1, 0.7}, scale = {0.1, 0.1, 0.1}, width = 3000, height = 500, font_size = 400, tooltip = "Berlin_to_Warszawa_Yellow", alignment = 2})
-    self.createButton({click_function = "map_Berlin_to_Danzig", function_owner = self, label = "Berlin_to_Danzig", position = {-3.5, 1, 0.8}, scale = {0.1, 0.1, 0.1}, width = 3000, height = 500, font_size = 400, tooltip = "Berlin_to_Danzig", alignment = 2})
-    self.createButton({click_function = "map_Berlin_to_Wien", function_owner = self, label = "Berlin_to_Wien", position = {-3.5, 1, 0.9}, scale = {0.1, 0.1, 0.1}, width = 3000, height = 500, font_size = 400, tooltip = "Berlin_to_Wien", alignment = 2})
-    self.createButton({click_function = "map_Zurich_to_Munchen_T", function_owner = self, label = "Zurich_to_Munchen_T", position = {-3.5, 1, 1}, scale = {0.1, 0.1, 0.1}, width = 3000, height = 500, font_size = 400, tooltip = "Zurich_to_Munchen_T", alignment = 2})
-    self.createButton({click_function = "map_Zurich_to_Venezia_T", function_owner = self, label = "Zurich_to_Venezia_T", position = {-3.5, 1, 1.1}, scale = {0.1, 0.1, 0.1}, width = 3000, height = 500, font_size = 400, tooltip = "Zurich_to_Venezia_T", alignment = 2})
-    self.createButton({click_function = "map_Zurich_to_Marseille_T", function_owner = self, label = "Zurich_to_Marseille_T", position = {-3.5, 1, 1.2}, scale = {0.1, 0.1, 0.1}, width = 3000, height = 500, font_size = 400, tooltip = "Zurich_to_Marseille_T", alignment = 2})
-    self.createButton({click_function = "map_Marseille_to_Roma_T", function_owner = self, label = "Marseille_to_Roma_T", position = {-3.5, 1, 1.3}, scale = {0.1, 0.1, 0.1}, width = 3000, height = 500, font_size = 400, tooltip = "Marseille_to_Roma_T", alignment = 2})
-    self.createButton({click_function = "map_Munchen_to_Venezia_T", function_owner = self, label = "Munchen_to_Venezia_T", position = {-3.5, 1, 1.4}, scale = {0.1, 0.1, 0.1}, width = 3000, height = 500, font_size = 400, tooltip = "Munchen_to_Venezia_T", alignment = 2})
-    self.createButton({click_function = "map_Munchen_to_Wien", function_owner = self, label = "Munchen_to_Wien", position = {-3.5, 1, 1.5}, scale = {0.1, 0.1, 0.1}, width = 3000, height = 500, font_size = 400, tooltip = "Munchen_to_Wien", alignment = 2})
+    self.createButton({click_function = "map_Cadiz_to_Madrid", function_owner = self, label = "Cadiz to Madrid", position = {-1.65, 0.05, 1.2}, rotation = {0, 170, 0}, scale = {0.3, 0.2, 0.28}, width = 400, height = 600, font_size = 0, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Cadiz to Madrid"})
+    self.createButton({click_function = "map_Lisboa_to_Madrid", function_owner = self, label = "Lisboa to Madrid", position = {-1.95, 0.1, 0.95}, scale = {0.5, 0.5, 0.5}, width = 400, height = 300, font_size = 0, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Lisboa to Madrid", alignment = 2})
+    self.createButton({click_function = "map_Lisboa_to_Cadiz", function_owner = self, label = "Lisboa to Cadiz", position = {-1.95, 0.1, 1.25}, scale = {0.5, 0.5, 0.5}, width = 400, height = 300, font_size = 0, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Lisboa to Cadiz", alignment = 2})
+    self.createButton({click_function = "map_Marseille_to_Roma_T", function_owner = self, label = "Marseille to Roma", position = {-0.4, 0.1, 0.6}, scale = {0.5, 0.5, 0.5}, width = 400, height = 300, font_size = 0, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Marseille to Roma (Tunnel)", alignment = 2})
+    self.createButton({click_function = "map_Madrid_to_Pamplona_Black_T", function_owner = self, label = "Madrid to Pamplona (Black/Tunnel)", position = {-1.6, 0.1, 0.8}, rotation = {0, 135, 0}, scale = {0.6, 0.5, 0.1}, width = 400, height = 300, font_size = 0, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Madrid to Pamplona (Black/Tunnel)", alignment = 2})
+    self.createButton({click_function = "map_Madrid_to_Pamplona_White_T", function_owner = self, label = "Madrid to Pamplona (White/Tunnel)", position = {-1.54, 0.1, 0.83}, rotation = {0, 135, 0}, scale = {0.6, 0.5, 0.1}, width = 400, height = 300, font_size = 0, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Madrid to Pamplona (White/Tunnel)", alignment = 2})
+    self.createButton({click_function = "map_Madrid_to_Barcelona", function_owner = self, label = "Madrid to Barcelona", position = {-1.48, 0.1, 1.03}, scale = {0.4, 0.5, 0.1}, width = 400, height = 300, font_size = 0, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Madrid to Barcelona", alignment = 2})
+    self.createButton({click_function = "map_Pamplona_to_Barcelona_T", function_owner = self, label = "Pameplona to Barcelona (Tunnel)", position = {-1.3, 0.1, 0.85}, rotation = {0, 85, 0}, scale = {0.4, 0.5, 0.1}, width = 400, height = 300, font_size = 0, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Pamplona to Barcelona (Tunnel)", alignment = 2})
+    self.createButton({click_function = "map_Pamplona_to_Paris_Blue", function_owner = self, label = "Pamplona to Paris (Blue)", position = {-1.23, 0.1, 0.34}, rotation = {0, 112, 0}, scale = {0.8, 0.5, 0.15}, width = 400, height = 300, font_size = 0, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Pamplona to Paris (Blue)", alignment = 2})
+    self.createButton({click_function = "map_Pamplona_to_Paris_Green", function_owner = self, label = "Pamplona to Paris (Green)", position = {-1.16, 0.1, 0.34}, rotation = {0, 112, 0}, scale = {0.8, 0.5, 0.15}, width = 400, height = 300, font_size = 0, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Pamplona to Paris (Green)", alignment = 2})
+    self.createButton({click_function = "map_Pamplona_to_Marseille", function_owner = self, label = "Pamplona to Marseille", position = {-1.02, 0.1, 0.6}, rotation = {0, 170, 0}, scale = {0.7, 0.5, 0.25}, width = 400, height = 300, font_size = 0, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Pamplona to Marseille", alignment = 2})
+    self.createButton({click_function = "map_Barcelona_to_Marseille", function_owner = self, label = "Barcelona to Marseille", position = {-1, 0.1, 0.8}, rotation = {0, 145, 0}, scale = {0.8, 0.5, 0.2}, width = 400, height = 300, font_size = 0, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Barcelona to Marseille", alignment = 2})
+    self.createButton({click_function = "map_Pamplona_to_Brest", function_owner = self, label = "Pamplona to Brest", position = {-1.48, 0.1, 0.24}, rotation = {0, 75, 0}, scale = {0.60, 0.5, 0.75}, width = 450, height = 200, font_size = 0, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Pamplona to Brest", alignment = 2})
+    self.createButton({click_function = "map_Frankfurt_to_Berlin_Red", function_owner = self, label = "Frankfurt to Berlin (Red)", position = {-0.26, 0.1, -0.3}, rotation = {0, 155, 0}, scale = {0.6, 0.5, -0.1}, width = 400, height = 300, font_size = 0, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Frankfurt to Berlin (Red)", alignment = 2})
+    self.createButton({click_function = "map_Frankfurt_to_Berlin_Black", function_owner = self, label = "Frankfurt to Berlin (Black)", position = {-0.29, 0.1, -0.35}, rotation = {0, 155, 0}, scale = {0.6, 0.5, -0.1}, width = 400, height = 300, font_size = 0, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Frankfurt to Berlin (Black)", alignment = 2})
+    self.createButton({click_function = "map_Paris_to_Frankfurt_White", function_owner = self, label = "Paris to Frankfurt (White)", position = {-0.77, 0.1, -0.11}, rotation = {0, 150, 0}, scale = {0.6, 0.5, -0.1}, width = 400, height = 300, font_size = 0, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Paris to Frankfurt (White)", alignment = 2})
+    self.createButton({click_function = "map_Paris_to_Frankfurt_Orange", function_owner = self, label = "Paris to Frankfurt (Orange)", position = {-0.74, 0.1, -0.07}, rotation = {0, 150, 0}, scale = {0.6, 0.5, -0.1}, width = 400, height = 300, font_size = 0, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Paris to Frankfurt (Orange)", alignment = 2})
+    self.createButton({click_function = "map_Paris_to_Bruxelles_Yellow", function_owner = self, label = "Paris to Bruxelles (Yellow)", position = {-1, 0.1, -0.2}, rotation = {0, 120, 0}, scale = {0.4, 0.5, -0.1}, width = 400, height = 300, font_size = 0, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Paris to Bruxelles (Yellow)", alignment = 2})
+    self.createButton({click_function = "map_Paris_to_Bruxelles_Red", function_owner = self, label = "Paris to Bruxelles (Red)", position = {-0.94, 0.1, -0.18}, rotation = {0, 120, 0}, scale = {0.4, 0.5, -0.1}, width = 400, height = 300, font_size = 0, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Paris to Bruxelles (Red)", alignment = 2})
+    self.createButton({click_function = "map_Bruxelles_to_Amsterdam", function_owner = self, label = "Bruxelles to Amsterdam", position = {-0.851, 0.1, -0.47}, rotation = {0, 120, 0}, scale = {0.2, 0.5, -0.1}, width = 400, height = 300, font_size = 0, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Bruxelles to Amsterdam", alignment = 2})
+    self.createButton({click_function = "map_Brest_to_Paris", function_owner = self, label = "Brest to Paris", position = {-1.4, 0.1, -0.05}, rotation = {0, 5, 0}, scale = {0.6, 0.5, 0.15}, width = 450, height = 200, font_size = 0, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Brest to Paris", alignment = 2})
+    self.createButton({click_function = "map_Brest_to_Dieppe", function_owner = self, label = "Brest to Dieppe", position = {-1.5, 0.1, -0.18}, rotation = {0, 165, 0}, scale = {0.4, 0.5, 0.15}, width = 450, height = 200, font_size = 0, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Brest to Dieppe", alignment = 2})
+    self.createButton({click_function = "map_London_to_Edinburgh_Black", function_owner = self, label = "London to Edinburgh (Black)", position = {-1.4, 0.1, -0.9}, rotation = {0, 65, 0}, scale = {0.7, 0.5, 0.15}, width = 450, height = 200, font_size = 0, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "London to Edinburgh (Black)", alignment = 2})
+    self.createButton({click_function = "map_London_to_Edinburgh_Orange", function_owner = self, label = "London to Edinburgh (Orange)", position = {-1.35, 0.1, -0.93}, rotation = {0, 66, 0}, scale = {0.7, 0.5, 0.15}, width = 450, height = 200, font_size = 0, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "London to Edinburgh (Orange)", alignment = 2})
+    self.createButton({click_function = "map_Dieppe_to_London_F_1", function_owner = self, label = "Dieppe to London (Ferry)", position = {-1.3, 0.1, -0.4}, rotation = {0, 95, 0}, scale = {0.3, 0.5, 0.15}, width = 450, height = 200, font_size = 0, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Dieppe to London", alignment = 2})
+    self.createButton({click_function = "map_Dieppe_to_London_F_2", function_owner = self, label = "Dieppe to London_2 (Ferry)", position = {-1.23, 0.05, -0.4}, rotation = {0, 95, 0}, scale = {0.3, 0.5, 0.15}, width = 450, height = 200, font_size = 0, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Dieppe to London", alignment = 2})
+    self.createButton({click_function = "map_Dieppe_to_Paris", function_owner = self, label = "Dieppe to Paris", position = {-1.18, 0.05, -0.13}, rotation = {0, 50, 0}, scale = {0.2, 0.5, 0.15}, width = 450, height = 200, font_size = 0, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Dieppe to Paris", alignment = 2})
+    self.createButton({click_function = "map_Bruxelles_to_Amsterdam", function_owner = self, label = "Bruxelles to Amsterdam", position = {-0.85, 0.05, -0.49}, rotation = {0, 110, 0}, scale = {0.2, 0.5, 0.15}, width = 450, height = 200, font_size = 0, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Bruxelles to Amsterdam", alignment = 2})
+    self.createButton({click_function = "map_Dieppe_to_Bruxelles", function_owner = self, label = "Dieppe to Bruxelles", position = {-1.1, 0.05, -0.28}, rotation = {0, 145, 0}, scale = {0.4, 0.5, 0.15}, width = 450, height = 200, font_size = 0, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Dieppe to Bruxelles", alignment = 2})
+    self.createButton({click_function = "map_Paris_to_Marseille", function_owner = self, label = "Paris to Marseille", position = {-0.87, 0.05, 0.35}, rotation = {0, 50, 0}, scale = {0.7, 0.5, 0.3}, width = 450, height = 200, font_size = 0, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Paris to Marseille", alignment = 2})
+    self.createButton({click_function = "map_London_to_Amsterdam", function_owner = self, label = "London to Amsterdam", position = {-1.02, 0.05, -0.6}, scale = {0.4, 0.5, 0.15}, width = 450, height = 200, font_size = 0, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "London to Amsterdam", alignment = 2})
+    self.createButton({click_function = "map_Amsterdam_to_Frankfurt", function_owner = self, label = "Amsterdam to Frankfurt", position = {-0.65, 0.05, -0.42}, rotation = {0, 45, 0}, scale = {0.4, 0.5, 0.15}, width = 450, height = 200, font_size = 0, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Amsterdam to Frankfurt", alignment = 2})
+    self.createButton({click_function = "map_Amsterdam_to_Essen", function_owner = self, label = "Amsterdam to Essen", position = {-0.66, 0.05, -0.68}, rotation = {0, 20, 0}, scale = {0.4, 0.5, 0.6}, width = 450, height = 200, font_size = 0, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Amsterdam to Essen", alignment = 2})
+    self.createButton({click_function = "map_Bruxelles_to_Frankfurt", function_owner = self, label = "Bruxelles to Frankfurt", position = {-0.74, 0.05, -0.35}, rotation = {0, 20, 0}, scale = {0.35, 0.5, 0.3}, width = 450, height = 200, font_size = 0, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Bruxelles to Frankfurt", alignment = 2})
+    self.createButton({click_function = "map_Essen_to_Berlin", function_owner = self, label = "Essen to Berlin", position = {-0.22, 0.05, -0.54}, rotation = {0, 5, 0}, scale = {0.4, 0.5, 0.15}, width = 450, height = 200, font_size = 0, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Essen to Berlin", alignment = 2})
+    self.createButton({click_function = "map_Frankfurt_to_Essen", function_owner = self, label = "Frankfurt to Essen", position = {-0.43, 0.05, -0.41}, rotation = {0, 150, 0}, scale = {0.3, 0.5, 0.39}, width = 450, height = 200, font_size = 0, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Frankfurt to Essen", alignment = 2})
+    self.createButton({click_function = "map_Frankfurt_to_Munchen", function_owner = self, label = "Frankfurt to Munchen", position = {-0.43, 0.05, -0.1}, rotation = {0, 70, 0}, scale = {0.25, 0.5, 0.39}, width = 450, height = 200, font_size = 0, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Frankfurt to Munchen", alignment = 2})
+    self.createButton({click_function = "map_Zurich_to_Marseille_T", function_owner = self, label = "Zurich to Marseille (Tunnel)", position = {-0.6, 0.05, 0.4}, rotation = {0, 105, 0}, scale = {0.4, 0.5, 0.15}, width = 450, height = 200, font_size = 0, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Zurich to Marseille (Tunnel)", alignment = 2})
+    self.createButton({click_function = "map_Zurich_to_Venezia_T", function_owner = self, label = "Zurich to Venezia (Tunnel)", position = {-0.4, 0.05, 0.3}, rotation = {0, 25, 0}, scale = {0.4, 0.5, 0.15}, width = 450, height = 200, font_size = 0, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Zurich to Venezia (Tunnel)", alignment = 2})
+    self.createButton({click_function = "map_Zurich_to_Munchen_T", function_owner = self, label = "Zurich to Munchen (Tunnel)", position = {-0.42, 0.05, 0.1}, rotation = {0, 139, 0}, scale = {0.4, 0.5, 0.15}, width = 450, height = 200, font_size = 0, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Zurich to Munchen (Tunnel)", alignment = 2})
+    self.createButton({click_function = "map_Munchen_to_Venezia_T", function_owner = self, label = "Munchen to Venezia (Tunnel)", position = {-0.25, 0.05, 0.15}, rotation = {0, 80, 0}, scale = {0.4, 0.5, 0.15}, width = 450, height = 200, font_size = 0, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Munchen to Venezia (Tunnel)", alignment = 2})
+    self.createButton({click_function = "map_Venezia_to_Roma", function_owner = self, label = "Venezia to Roma", position = {-0.17, 0.05, 0.55}, rotation = {0, 80, 0}, scale = {0.4, 0.5, 0.15}, width = 450, height = 200, font_size = 0, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Venezia to Roma", alignment = 2})
+    self.createButton({click_function = "map_Essen_to_Kobenhavn_F_1", function_owner = self, label = "Essen to Kobenhavn (Ferry)", position = {-0.35, 0.05, -0.8}, rotation = {0, 125, 0}, scale = {0.6, 0.5, 0.1}, width = 400, height = 300, font_size = 0, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Essen to Kobenhavn (Ferry)", alignment = 2})
+    self.createButton({click_function = "map_Essen_to_Kobenhavn_F_2", function_owner = self, label = "Essen to Kobenhavn_2 (Ferry)", position = {-0.29, 0.05, -0.75}, rotation = {0, 125, 0}, scale = {0.6, 0.5, 0.1}, width = 400, height = 300, font_size = 0, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Essen to Kobenhavn (Ferry)", alignment = 2})
+    self.createButton({click_function = "map_Kobenhavn_to_Stockholm_Yellow", function_owner = self, label = "Kobenhavn to Stockholm (Yellow)", position = {0.03, 0.05, -1.2}, rotation = {0, 140, 0}, scale = {0.6, 0.5, 0.1}, width = 400, height = 300, font_size = 0, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Kobenhavn to Stockholm (Yellow)", alignment = 2})
+    self.createButton({click_function = "map_Kobenhavn_to_Stockholm_White", function_owner = self, label = "Kobenhavn to Stockholm (White)", position = {0.07, 0.05, -1.15}, rotation = {0, 140, 0}, scale = {0.6, 0.5, 0.1}, width = 400, height = 300, font_size = 0, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Kobenhavn to Stockholm (White)", alignment = 2})
+    self.createButton({click_function = "map_Paris_to_Zurich_T", function_owner = self, label = "Paris to Zurich (Tunnel)", position = {-0.8, 0.05, 0.17}, rotation = {0, 20, 0}, scale = {0.5, 0.5, 0.45}, width = 450, height = 200, font_size = 0, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Paris to Zurich (Tunnel)", alignment = 2})
+    self.createButton({click_function = "map_Stockholm_to_Petrograd_T", function_owner = self, label = "Stockholm to Petrograd (Tunnel)", position = {0.9, 0.05, -1.3}, rotation = {0, 177, 0}, scale = {1.4, 0.5, 0.43}, width = 450, height = 200, font_size = 0, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Stockholm to Petrograd (Tunnel)", alignment = 2})
+    self.createButton({click_function = "map_Berlin_to_Danzig", function_owner = self, label = "Berlin to Danzig", position = {0.15, 0.05, -0.8}, rotation = {0, 145, 0}, scale = {0.7, 0.5, 0.7}, width = 450, height = 200, font_size = 0, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Berlin to Danzig", alignment = 2})
+    self.createButton({click_function = "map_Danzig_to_Riga", function_owner = self, label = "Danzig to Riga", position = {0.58, 0.05, -1.05}, rotation = {0, 135, 0}, scale = {0.5, 0.5, 0.5}, width = 450, height = 200, font_size = 0, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Danzig to Riga", alignment = 2})
+    self.createButton({click_function = "map_Riga_to_Wilno", function_owner = self, label = "Riga to Wilno", position = {0.95, 0.05, -0.91}, rotation = {0, 40, 0}, scale = {0.65, 0.5, 0.67}, width = 450, height = 200, font_size = 0, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Riga to Wilno", alignment = 2})
+    self.createButton({click_function = "map_Warszawa_to_Wilno", function_owner = self, label = "Warszawa to Wilno", position = {0.9, 0.05, -0.6}, rotation = {0, 210, 0}, scale = {0.4, 0.5, 0.8}, width = 450, height = 200, font_size = 0, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Warszawa to Wilno", alignment = 2})
+    self.createButton({click_function = "map_Wilno_to_Smolensk", function_owner = self, label = "Wilno to Smolensk", position = {1.38, 0.05, -0.63}, rotation = {0, 215, 0}, scale = {0.4, 0.5, 0.7}, width = 450, height = 200, font_size = 0, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Wilno to Smolensk", alignment = 2})
+    self.createButton({click_function = "map_Wilno_to_Kyiv", function_owner = self, label = "Wilno to Kyiv", position = {1.25, 0.05, -0.48}, rotation = {0, 150, 0}, scale = {0.2, 0.5, 0.8}, width = 450, height = 200, font_size = 0, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Wilno to Kyiv", alignment = 2})
+    self.createButton({click_function = "map_Smolensk_to_Moskva", function_owner = self, label = "Smolensk to Moskva", position = {1.78, 0.05, -0.64}, scale = {0.35, 0.5, 0.4}, width = 450, height = 200, font_size = 0, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Smolensk to Moskva", alignment = 2})
+    self.createButton({click_function = "map_Kyiv_to_Smolensk", function_owner = self, label = "Kyiv to Smolensk", position = {1.52, 0.05, -0.4}, rotation = {0, 130, 0}, scale = {0.45, 0.5, 0.7}, width = 450, height = 200, font_size = 0, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Kyiv to Smolensk", alignment = 2})
+    self.createButton({click_function = "map_Kharkov_to_Rostov", function_owner = self, label = "Kharkov to Rostov", position = {2.03, 0.05, 0}, scale = {0.2, 0.5, 0.6}, width = 450, height = 200, font_size = 0, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Kharkov to Rostov", alignment = 2})
+    self.createButton({click_function = "map_Moskva_to_Kharkov", function_owner = self, label = "Moskva to Kharkov", position = {2, 0.05, -0.4}, rotation = {0, 190, 0}, scale = {0.2, 0.5, 1.7}, width = 450, height = 200, font_size = 0, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Moskva to Kharkov", alignment = 2})
+    self.createButton({click_function = "map_Petrograd_to_Moskva", function_owner = self, label = "Petrograd to Moskva", position = {1.83, 0.05, -1.03}, rotation = {0, 140, 0}, scale = {0.3, 0.5, 1.7}, width = 450, height = 200, font_size = 0, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Petrograd to Moskva", alignment = 2})
+    self.createButton({click_function = "map_Kyiv_to_Kharkov", function_owner = self, label = "Kyiv to Kharkov", position = {1.57, 0.05, -0.09}, rotation = {0, 194, 0}, scale = {0.7, 0.5, 0.65}, width = 450, height = 200, font_size = 0, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Kyiv to Kharkov", alignment = 2})
+    self.createButton({click_function = "map_Bucuresti_to_Sevastopol", function_owner = self, label = "Bucuresti to Sevastopol", position = {1.39, 0.05, 0.34}, rotation = {0, 185, 0}, scale = {0.68, 0.5, 0.65}, width = 450, height = 200, font_size = 0, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Bucuresti to Sevastopol", alignment = 2})
+    self.createButton({click_function = "map_Roma_to_Palermo_F", function_owner = self, label = "Roma to Palermo", position = {-0.05, 0.05, 1.01}, rotation = {0, 45, 0}, scale = {0.55, 0.5, 1}, width = 450, height = 200, font_size = 0, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Roma to Palermo (Ferry)", alignment = 2})
+    self.createButton({click_function = "map_Sevastopol_to_Rostov", function_owner = self, label = "Sevastopol to Rostov", position = {1.85, 0.051, 0.27}, rotation = {0, 10, 0}, scale = {0.4, 0.5, 1.1}, width = 450, height = 200, font_size = 0, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Sevastopol to Rostov", alignment = 2})
+    self.createButton({click_function = "map_Constantinople_to_Sevastopol_F", function_owner = self, label = "Constantinople to Sevastopol (Ferry)", position = {1.47, 0.051, 0.7}, scale = {0.45, 0.5, 1.2}, width = 450, height = 200, font_size = 0, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Constantinople to Sevastopol (Ferry)", alignment = 2})
+    self.createButton({click_function = "map_Sarajevo_to_Athina", function_owner = self, label = "Sarajevo to Athina", position = {0.52, 0.051, 0.92}, rotation = {0, 5, 0}, scale = {0.1, 0.5, 1.3}, width = 450, height = 200, font_size = 0, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Sarajevo to Athina", alignment = 2})
+    self.createButton({click_function = "map_Sarajevo_to_Athina", function_owner = self, label = "Sarajevo to Athina", position = {0.6, 0.051, 1.145}, rotation = {0, 5, 0}, scale = {0.2, 0.5, 0.2}, width = 450, height = 200, font_size = 0, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Sarajevo to Athina", alignment = 2})
+    self.createButton({click_function = "map_Munchen_to_Wien", function_owner = self, label = "Munchen to Wien", position = {-0.04, 0.05, 0.05}, rotation = {0, 10, 0}, scale = {0.45, 0.5, 0.6}, width = 450, height = 200, font_size = 0, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Munchen to Wien", alignment = 2})
+    self.createButton({click_function = "map_Venezia_to_Zagrab", function_owner = self, label = "Venezia to Zagrab", position = {-0.02, 0.05, 0.34}, rotation = {0, 10, 0}, scale = {0.38, 0.5, 0.4}, width = 450, height = 200, font_size = 0, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Venezia to Zagrab", alignment = 2})
+    self.createButton({click_function = "map_Roma_to_Brindisi", function_owner = self, label = "Roma to Brindisi", position = {0.045, 0.05, 0.74}, rotation = {0, 25, 0}, scale = {0.38, 0.5, 0.35}, width = 450, height = 200, font_size = 0, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Roma to Brindisi", alignment = 2})
+    self.createButton({click_function = "map_Palermo_to_Brindisi", function_owner = self, label = "Palermo to Brindisi", position = {0.16, 0.05, 1.19}, rotation = {0, 130, 0}, scale = {0.38, 0.5, 0.2}, width = 450, height = 200, font_size = 0, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Palermo to Brindisi (Ferry)", alignment = 2})
+    self.createButton({click_function = "map_Palermo_to_Brindisi", function_owner = self, label = "Palermo to Brindisi", position = {0.23, 0.08, 1}, rotation = {0, 70, 0}, scale = {0.25, 0.5, 0.2}, width = 450, height = 200, font_size = 0, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Palermo to Brindisi", alignment = 2})
+    self.createButton({click_function = "map_Zagrab_to_Sarajevo", function_owner = self, label = "Zagrab to Sarajevo", position = {0.29, 0.05, 0.6}, rotation = {0, 20, 0}, scale = {0.45, 0.5, 0.7}, width = 450, height = 200, font_size = 0, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Zagrab to Sarajevo", alignment = 2})
+    self.createButton({click_function = "map_Sarajevo_to_Sofia", function_owner = self, label = "Sarajevo to Sofia", position = {0.68, 0.05, 0.6}, rotation = {0, 10, 0}, scale = {0.3, 0.5, 0.44}, width = 450, height = 200, font_size = 0, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Sarajevo to Sofia (Tunnel)", alignment = 2})
+    self.createButton({click_function = "map_Bucuresti_to_Sofia", function_owner = self, label = "Bucuresti to Sofia", position = {0.95, 0.05, 0.58}, rotation = {0, 130, 0}, scale = {0.33, 0.5, 0.44}, width = 450, height = 200, font_size = 0, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Bucuresti to Sofia (Tunnel)", alignment = 2})
+    self.createButton({click_function = "map_Brindisi_to_Athina_F", function_owner = self, label = "Brindisi to Athina", position = {0.32, 0.05, 1.05}, rotation = {0, 66, 0}, scale = {0.4, 0.5, 0.2}, width = 450, height = 200, font_size = 0, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Brindisi to Athina (Tunnel)", alignment = 2})
+    self.createButton({click_function = "map_Brindisi_to_Athina_F", function_owner = self, label = "Brindisi to Athina", position = {0.53, 0.05, 1.21}, rotation = {0, 185, 0}, scale = {0.4, 0.5, 0.2}, width = 450, height = 200, font_size = 0, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Brindisi to Athina (Tunnel)", alignment = 2})
+    self.createButton({click_function = "map_Berlin_to_Warszawa_Pink", function_owner = self, label = "Berlin to Warszawa (Pink)", position = {0.3, 0.05, -0.56}, rotation = {0, 175, 0}, scale = {0.8, 0.5, -0.1}, width = 400, height = 300, font_size = 0, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Berlin to Warszawa (Pink)", alignment = 2})
+    self.createButton({click_function = "map_Berlin_to_Warszawa_Yellow", function_owner = self, label = "Berlin to Warszawa (Yellow)", position = {0.3, 0.05, -0.5}, rotation = {0, 175, 0}, scale = {0.8, 0.5, -0.1}, width = 400, height = 300, font_size = 0, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Berlin to Warszawa (Yellow)", alignment = 2})
+    self.createButton({click_function = "map_Berlin_to_Wien", function_owner = self, label = "Berlin to Wien", position = {0.08, 0.05, -0.22}, rotation = {0, 60, 0}, scale = {0.6, 0.5, 0.15}, width = 400, height = 300, font_size = 0, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Berlin to Wien", alignment = 2})
+    self.createButton({click_function = "map_Wien_to_Warszawa", function_owner = self, label = "Wien to Warszawa", position = {0.47, 0.05, -0.24}, rotation = {0, 132, 0}, scale = {0.84, 0.5, 0.22}, width = 400, height = 300, font_size = 0, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Wien to Warszawa", alignment = 2})
+    self.createButton({click_function = "map_Warszawa_to_Kyiv", function_owner = self, label = "Warszawa to Kyiv", position = {1, 0.05, -0.38}, rotation = {0, 15, 0}, scale = {0.84, 0.5, 0.25}, width = 400, height = 300, font_size = 0, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Warszawa to Kyiv", alignment = 2})
+    self.createButton({click_function = "map_Budapest_to_Kyiv_T", function_owner = self, label = "Budapest to Kyiv (Tunnel)", position = {0.8, 0.05, -0.13}, rotation = {0, 160, 0}, scale = {1.2, 0.5, 0.25}, width = 400, height = 300, font_size = 0, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Budapest to Kyiv (Tunnel)", alignment = 2})
+    self.createButton({click_function = "map_Sofia_to_Athina", function_owner = self, label = "Sofia to Athina", position = {0.72, 0.05, 0.92}, rotation = {0, 95, 0}, scale = {0.6, 0.5, 0.27}, width = 400, height = 300, font_size = 0, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Sofia to Athina", alignment = 2})
+    self.createButton({click_function = "map_Wien_to_Zagrab", function_owner = self, label = "Wien to Zagrab", position = {0.17, 0.05, 0.21}, rotation = {0, 95, 0}, scale = {0.4, 0.5, 0.15}, width = 450, height = 200, font_size = 0, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Wien to Zagrab", alignment = 2})
+    self.createButton({click_function = "map_Wien_to_Budapest_White", function_owner = self, label = "Wien to Budapest (White)", position = {0.3, 0.05, 0.12}, rotation = {0, 27, 0}, scale = {0.2, 0.5, 0.15}, width = 450, height = 200, font_size = 0, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Wien to Budapest (White)", alignment = 2})
+    self.createButton({click_function = "map_Wien_to_Budapest_Red", function_owner = self, label = "Wien to Budapest (Red)", position = {0.33, 0.05, 0.07}, rotation = {0, 30, 0}, scale = {0.2, 0.5, 0.15}, width = 450, height = 200, font_size = 0, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Wien to Budapest (Red)", alignment = 2})
+    self.createButton({click_function = "map_Budapest_to_Bucuresti_T", function_owner = self, label = "Budapest to Bucuresti", position = {0.75, 0.05, 0.27}, rotation = {0, 28, 0}, scale = {0.7, 0.5, 0.15}, width = 450, height = 200, font_size = 0, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Budapest to Bucuresti (Tunnel)", alignment = 2})
+    self.createButton({click_function = "map_Bucuresti_to_Kyiv", function_owner = self, label = "", position = {1.16, 0.05, 0.07}, rotation = {0, 110, 0}, scale = {0.7, 0.5, 0.15}, width = 450, height = 200, font_size = 0, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Bucuresti to Kyiv", alignment = 2})
+    self.createButton({click_function = "map_Sofia_to_Constantinople", function_owner = self, label = "Sofia to Constantinople", position = {1.05, 0.05, 0.83}, rotation = {0, 28, 0}, scale = {0.6, 0.5, 0.15}, width = 450, height = 200, font_size = 0, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Sofia to Constantinople", alignment = 2})
+    self.createButton({click_function = "map_Bucuresti_to_Constantinople", function_owner = self, label = "Bucuresti to Constantinople", position = {1.19, 0.05, 0.7}, rotation = {0, 66, 0}, scale = {0.6, 0.5, 0.15}, width = 450, height = 200, font_size = 0, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Bucuresti to Constantinople", alignment = 2})
+    self.createButton({click_function = "map_Budapest_to_Sarajevo", function_owner = self, label = "Budaest to Sarajaevo", position = {0.48, 0.05, 0.4}, rotation = {0, 82, 0}, scale = {0.6, 0.5, 0.15}, width = 450, height = 200, font_size = 0, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Budaest to Sarajaevo", alignment = 2})
+    self.createButton({click_function = "map_Palermo_to_Smyrna", function_owner = self, label = "Palermo to Smyrna", position = {0.6, 0.05, 1.3}, scale = {1.1, 0.5, 0.15}, width = 450, height = 200, font_size = 0, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Palermo to Smyrna (Ferry)", alignment = 2})
+    self.createButton({click_function = "map_Riga_to_Petrograd", function_owner = self, label = "Riga to Petrograd", position = {1.154, 0.05, -1.2}, scale = {0.8, 0.5, 0.15}, width = 450, height = 200, font_size = 0, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Riga to Petrograd", alignment = 2})
+    self.createButton({click_function = "map_Wilno_to_Petrograd", function_owner = self, label = "Wilno to Petrograd", position = {1.35, 0.05, -0.94}, rotation = {0, 125, 0}, scale = {0.8, 0.5, 0.15}, width = 450, height = 200, font_size = 0, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Wilno to Petrograd", alignment = 2})
+    self.createButton({click_function = "map_Zagrab_to_Budapest", function_owner = self, label = "Zagrab to Budapest", position = {0.3, 0.05, 0.29}, rotation = {0, 130, 0}, scale = {0.4, 0.5, 0.15}, width = 450, height = 200, font_size = 0, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Zagrab to Budapest", alignment = 2})
+    self.createButton({click_function = "map_Athina_to_Smyrna_F", function_owner = self, label = "Athina to Smyrna", position = {0.93, 0.05, 1.21}, rotation = {0, 15, 0}, scale = {0.4, 0.5, 0.15}, width = 450, height = 200, font_size = 0, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Athina to Smyrna (Ferry)", alignment = 2})
+    self.createButton({click_function = "map_Constantinople_to_Smyrna_T", function_owner = self, label = "Constantinople to Smyrna", position = {1.19, 0.05, 1.12}, rotation = {0, 115, 0}, scale = {0.35, 0.5, 0.15}, width = 450, height = 200, font_size = 0, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Constantinople to Smyrna (Tunnel)", alignment = 2})
+    self.createButton({click_function = "map_Constantinople_to_Angora_T", function_owner = self, label = "Constantinople to Angora", position = {1.47, 0.05, 1.08}, rotation = {0, 35, 0}, scale = {0.35, 0.5, 0.15}, width = 450, height = 200, font_size = 0, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Constantinople to Angora (Tunnel)", alignment = 2})
+    self.createButton({click_function = "map_Rostov_to_Sochi", function_owner = self, label = "Rostov to Sochi", position = {2.06, 0.05, 0.35}, rotation = {0, 94, 0}, scale = {0.35, 0.5, 0.15}, width = 450, height = 200, font_size = 0, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Rostov to Sochi", alignment = 2})
+    self.createButton({click_function = "map_Sevastopol_to_Sochi_F", function_owner = self, label = "Sevastopol to Sochi", position = {1.86, 0.05, 0.51}, rotation = {0, 10, 0}, scale = {0.35, 0.5, 0.15}, width = 450, height = 200, font_size = 0, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Sevastopol to Sochi (Ferry)", alignment = 2})
+    self.createButton({click_function = "map_Sochi_to_Erzurum_T", function_owner = self, label = "Sochi to Erzurum", position = {2.01, 0.05, 0.83}, rotation = {0, 98, 0}, scale = {0.55, 0.5, 0.15}, width = 450, height = 200, font_size = 0, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Sochi to Erzurum (Tunnel)", alignment = 2})
+    self.createButton({click_function = "map_Smyrna_to_Angora_T", function_owner = self, label = "Smyrna to Angora", position = {1.38, 0.05, 1.29}, rotation = {0, 170, 0}, scale = {0.55, 0.5, 0.3}, width = 450, height = 200, font_size = 0, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Smyrna to Angora", alignment = 2})
+    self.createButton({click_function = "map_Angora_to_Erzurum", function_owner = self, label = "Angora to Erzurum", position = {1.85, 0.05, 1.2}, scale = {0.5, 0.5, 0.55}, width = 450, height = 200, font_size = 0, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Angora to Erzurum", alignment = 2})
+    self.createButton({click_function = "map_Sevastopol_to_Erzurum_F", function_owner = self, label = "Sevastopol to Erzurum_F1", position = {1.7, 0.05, 0.7}, rotation = {0, 85, 0}, scale = {0.4, 0.5, 0.15}, width = 450, height = 200, font_size = 0, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Sevastopol to Erzurum (Ferry)", alignment = 2})
+    self.createButton({click_function = "map_Sevastopol_to_Erzurum_F", function_owner = self, label = "Sevastopol to Erzurum", position = {1.82, 0.05, 0.97}, rotation = {0, 40, 0}, scale = {0.4, 0.5, 0.15}, width = 450, height = 200, font_size = 0, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Sevastopol to Erzurum (Ferry)", alignment = 2})
+    self.createButton({click_function = "map_Danzig_to_Warszawa", function_owner = self, label = "Danzig to Warszawa", position = {0.6, 0.05, -0.7}, rotation = {0, 130, 0}, scale = {0.2, 0.5, 0.83}, width = 450, height = 200, font_size = 0, color = {0.7573, 0.7573, 0.7573, 0}, tooltip = "Danzig to Warszawa", alignment = 2})
 end
 
-function isPlayerTurnOrGM(color)
+scoreTilePieces = {'ece6a7', '846f06', '19f26f', 'f12fb7', '04f4be', 'f698df'}
+playerScoresByIndex = {0, 0, 0, 0, 0, 0}
+
+function getPlayerColorToIndex(color)
+    playerColorToIndex = 0
+
+    if(color == 'Red' or color == Color.Red) then playerColorToIndex = 1 end
+    if(color == 'Orange' or color == Color.Orange) then playerColorToIndex = 2 end
+    if(color == 'Yellow' or color == Color.Yellow) then playerColorToIndex = 3 end
+    if(color == 'Purple' or color == Color.Purple) then playerColorToIndex = 4 end
+    if(color == 'Blue' or color == Color.Blue) then playerColorToIndex = 5 end
+    if(color == 'Green' or color == Color.Green) then playerColorToIndex = 6 end
+    
+    return playerColorToIndex
+end
+
+scoreTable = {1, 2, 4, 7, 7, 15, 15, 21}
+snapPoints = Global.getSnapPoints()
+
+function moveScoreCounterOnBoard(route, color, oper)
+    routeLength = #route
+    playerIndex = getPlayerColorToIndex(color)
+    if oper == "add" then
+        playerScoresByIndex[playerIndex] = playerScoresByIndex[playerIndex] + scoreTable[routeLength]
+    elseif oper == "sub" then
+        playerScoresByIndex[playerIndex] = playerScoresByIndex[playerIndex] - scoreTable[routeLength]
+    end
+    if playerScoresByIndex[playerIndex] >= 80 then
+        playerScoresByIndex[playerIndex] = playerScoresByIndex[playerIndex] - 80
+    end
+    for i, v in ipairs(snapPoints) do
+        if i > 80 then return nil end -- This means something broke, there's only 80 scoring snapoints.
+        if i == playerScoresByIndex[playerIndex] then
+            x,y,z = v.position.x, v.position.y, v.position.z
+            getObjectFromGUID(scoreTilePieces[playerIndex]).setPositionSmooth(Vector(x, y+4, z))
+            return true
+        end
+    end
+end
+
+function getTurnCounter()
+    return getObjectFromGUID('0b2ed0').getVar('turnCounter')
+end
+
+function setTurnCounter(number)
+    getObjectFromGUID('0b2ed0').setVar('turnCounter', number)
+    return nil
+end
+
+function isPlayerTurnOrPromoted(color)
     table = getSeatedPlayers()
     for _, value in pairs(table) do
         if value == color and Turns.turn_color == color then
             return true
-        elseif color == "Black" then
+        elseif Player[color].admin == true then
             return true
         end
     end
@@ -84,57 +186,90 @@ function isPlayerTurnOrGM(color)
 end
 
 function placeTrainRoute(route, color, alt_click)
-    -- print(color)
-    if(alt_click == true) then
-        hideTrainRoute(route)
-    end
-    if isPlayerTurnOrGM(color) then
-        showTrainRoute(route, color)
-        reduceTrainCounter(route, color)
+    if isPlayerTurnOrPromoted(color) then
+        if alt_click == true then
+            originalRouteColor = hideTrainRoute(route)
+            if getObjectFromGUID(route[1]).getColorTint() ~= "White" and (Player[color].admin ~= true or Turns.turn_color == color) then
+                if getTurnCounter() == 3 and not (getTurnCounter() <= 2) then
+                    increaseTrainCounter(route, originalRouteColor)
+                    moveScoreCounterOnBoard(route, color, "sub")
+                    setTurnCounter(0)
+                    broadcastToAll(Player[color].steam_name .. " has undone a train route of length " .. #route)
+                    return nil
+                elseif Player[color].admin == true then
+                    increaseTrainCounter(route, originalRouteColor)
+                    return nil
+                else
+                    broadcastToColor("It's not your turn or you are not an admin so you cannot undo this section.", color, errColor)
+                end
+                return nil
+            end
+        end
+        if getTurnCounter() >= 1 then
+            broadcastToColor("You have already taken another action this turn, please complete your action or end your turn, or right click the route you placed to undo it.", color, errColor)
+            return nil
+        end
+        if showTrainRoute(route, color, alt_click) then
+            reduceTrainCounter(route, color)
+            setTurnCounter(3)
+            moveScoreCounterOnBoard(route, color, "add") -- ToDo: Build index table of all possible scores and pass #route to this variable using that table.
+        end
     else
         broadcastToColor("It's not your turn or you are not seated in a valid colour.", color, errColor)
     end
 end
 
 function hideTrainRoute(route)
+    originalRouteColor = getObjectFromGUID(route[1]).getColorTint()
     for i, v in ipairs(route) do
         obj = getObjectFromGUID(v)
         obj.setColorTint('White')
-        position = obj.getPosition()
-        x, y, z = position:get()
-        obj.setPositionSmooth(Vector(x, y-1, z))
         obj.setInvisibleTo({'Orange', 'Red', 'Green', 'Blue', 'Purple', 'Yellow', 'Teal', 'Brown', 'Pink', 'White', 'Grey', 'Black'})
     end
+    return originalRouteColor
 end
 
-function showTrainRoute(route, color)
+function showTrainRoute(route, color, alt_click)
+    if alt_click then
+        return nil
+    end
     for i, v in ipairs(route) do
         obj = getObjectFromGUID(v)
-        if(obj.getColorTint() ~= Color.White) then
+        if obj.getColorTint() ~= Color.White then
+            broadcastToColor(Player[color].steam_name .. " - you can't place trains where another player's trains are.", color, stringColorToRGB("Teal"))
             return nil
         end
         obj.setColorTint(color)
         position = obj.getPosition()
         x, y, z = position:get()
-        obj.setPositionSmooth(Vector(x, y+2, z))
-        obj.setInvisibleTo({})
+        obj.setPositionSmooth(Vector(x, y+1, z))
         obj.setLock(false)
+        obj.setInvisibleTo({})
     end
+    -- Waits 180 frames for gravity to take effect, and then locks trains so buttons underneath trains can be clicked more easily.
+    Wait.frames(function() for i, v in ipairs(route) do obj = getObjectFromGUID(v).setLock(true) end end, 180)
+    return true
 end
 
 function reduceTrainCounter(route, color)
-    playerColorToIndex = 0
-
-    if(color == 'Red') then playerColorToIndex = 1 end
-    if(color == 'Orange') then playerColorToIndex = 2 end
-    if(color == 'Yellow') then playerColorToIndex = 3 end
-    if(color == 'Purple') then playerColorToIndex = 4 end
-    if(color == 'Blue') then playerColorToIndex = 5 end
-    if(color == 'Green') then playerColorToIndex = 6 end
+    playerColorToIndex = getPlayerColorToIndex(color)
 
     trainCounter = getObjectFromGUID(allTrainCounters[playerColorToIndex])
     currentCount = trainCounter.getValue()
     currentCount = trainCounter.setValue(currentCount - #route)
+end
+
+function increaseTrainCounter(route, color)
+    playerColorToIndex = getPlayerColorToIndex(color)
+
+    if playerColorToIndex == 0 then
+        return nil
+    end
+
+    trainCounter = getObjectFromGUID(allTrainCounters[playerColorToIndex])
+    currentCount = trainCounter.getValue()
+    
+    currentCount = trainCounter.setValue(currentCount + #route)
 end
 
 function map_Cadiz_to_Madrid(obj, color, alt_click)
@@ -293,8 +428,8 @@ end
 function map_Roma_to_Brindisi(obj, color, alt_click)
     placeTrainRoute(Roma_to_Brindisi, color, alt_click)
 end
-function map_Brindinsi_to_Athina(obj, color, alt_click)
-    placeTrainRoute(Brindinsi_to_Athina, color, alt_click)
+function map_Brindisi_to_Athina_F(obj, color, alt_click)
+    placeTrainRoute(Brindisi_to_Athina, color, alt_click)
 end
 function map_Palermo_to_Brindisi(obj, color, alt_click)
     placeTrainRoute(Palermo_to_Brindisi, color, alt_click)
@@ -556,8 +691,8 @@ Venezia_to_Roma =  {'c6b78c', '987571'}
 Roma_to_Palermo_F =  {'540770', '727a65', '3e5755', '1d37d1'}
 -- Roma_to_Brindisi = 2 White
 Roma_to_Brindisi =  {'43614b', '032a7d'}
--- Brindinsi_to_Athina = 1 Ferry, 3 Any
-Brindinsi_to_Athina =  {'8bf0da', '1afd62', '81a1b9', '0c18d4'}
+-- Brindisi_to_Athina = 1 Ferry, 3 Any
+Brindisi_to_Athina =  {'8bf0da', '1afd62', '81a1b9', '0c18d4'}
 -- Palermo_to_Brindisi = 1 Ferry, 2 Any
 Palermo_to_Brindisi =  {'13238b', 'bab727', 'a47bc4'}
 -- Palermo_to_Smyrna = 2 Ferry, 4 Any
@@ -655,4 +790,4 @@ Rostov_to_Sochi =  {'4d4d34', 'e038ea'}
 -- Sochi_to_Erzurum_T = 3 Red, Tunnel
 Sochi_to_Erzurum_T =  {'242f89', '74cdb5', '1d94f2'}
 
-AllRoutes = {Cadiz_to_Madrid, Lisboa_to_Cadiz, Lisboa_to_Madrid, Madrid_to_Barcelona, Madrid_to_Pamplona_Black_T, Madrid_to_Pamplona_White_T, Barcelona_to_Marseille, Pamplona_to_Brest, Pamplona_to_Paris_Blue, Pamplona_to_Paris_Green, Pamplona_to_Marseille, Pamplona_to_Barcelona_T, Brest_to_Paris, Brest_to_Dieppe, Paris_to_Bruxelles_Yellow, Paris_to_Bruxelles_Red, Paris_to_Frankfurt_White, Paris_to_Frankfurt_Orange, Paris_to_Marseille, Paris_to_Zurich_T, Dieppe_to_London_F_1, Dieppe_to_London_F_2, Dieppe_to_Paris, Dieppe_to_Bruxelles, Bruxelles_to_Amsterdam, Bruxelles_to_Frankfurt, London_to_Edinburgh_Black, London_to_Edinburgh_Orange, London_to_Amsterdam, Amsterdam_to_Essen, Amsterdam_to_Frankfurt, Frankfurt_to_Berlin_Black, Frankfurt_to_Berlin_Red, Frankfurt_to_Munchen, Frankfurt_to_Essen, Essen_to_Kobenhavn_F_1, Essen_to_Kobenhavn_F_2, Essen_to_Berlin, Berlin_to_Warszawa_Pink, Berlin_to_Warszawa_Yellow, Berlin_to_Danzig, Berlin_to_Wien, Zurich_to_Munchen_T, Zurich_to_Venezia_T, Zurich_to_Marseille_T, Marseille_to_Roma_T, Munchen_to_Venezia_T, Munchen_to_Wien, Venezia_to_Zagrab, Venezia_to_Roma, Roma_to_Palermo_F, Roma_to_Brindisi, Brindinsi_to_Athina, Palermo_to_Brindisi, Palermo_to_Smyrna, Kobenhavn_to_Stockholm_Yellow, Kobenhavn_to_Stockholm_White, Stockholm_to_Petrograd_T, Wien_to_Warszawa, Wien_to_Budapest_Red, Wien_to_Budapest_White, Wien_to_Zagrab, Zagrab_to_Budapest, Zagrab_to_Sarajevo, Danzig_to_Riga, Danzig_to_Warszawa, Warszawa_to_Wilno, Warszawa_to_Kyiv, Budapest_to_Kyiv_T, Budapest_to_Bucuresti_T, Budapest_to_Sarajevo, Sarajevo_to_Sofia, Sarajevo_to_Athina, Riga_to_Petrograd, Riga_to_Wilno, Bucuresti_to_Kyiv, Bucuresti_to_Sevastopol, Bucuresti_to_Constantinople, Bucuresti_to_Sofia, Sofia_to_Constantinople, Sofia_to_Athina, Athina_to_Smyrna_F, Wilno_to_Petrograd, Wilno_to_Smolensk, Wilno_to_Kyiv, Kyiv_to_Smolensk, Kyiv_to_Kharkov, Constantinople_to_Sevastopol_F, Constantinople_to_Angora_T, Constantinople_to_Smyrna_T, Smyrna_to_Angora_T, Angora_to_Erzurum, Petrograd_to_Moskva, Smolensk_to_Moskva, Moskva_to_Kharkov, Kharkov_to_Rostov, Sevastopol_to_Rostov, Sevastopol_to_Sochi_F, Sevastopol_to_Erzurum_F, Rostov_to_Sochi, Sochi_to_Erzurum_T}
+AllRoutes = {Cadiz_to_Madrid, Lisboa_to_Cadiz, Lisboa_to_Madrid, Madrid_to_Barcelona, Madrid_to_Pamplona_Black_T, Madrid_to_Pamplona_White_T, Barcelona_to_Marseille, Pamplona_to_Brest, Pamplona_to_Paris_Blue, Pamplona_to_Paris_Green, Pamplona_to_Marseille, Pamplona_to_Barcelona_T, Brest_to_Paris, Brest_to_Dieppe, Paris_to_Bruxelles_Yellow, Paris_to_Bruxelles_Red, Paris_to_Frankfurt_White, Paris_to_Frankfurt_Orange, Paris_to_Marseille, Paris_to_Zurich_T, Dieppe_to_London_F_1, Dieppe_to_London_F_2, Dieppe_to_Paris, Dieppe_to_Bruxelles, Bruxelles_to_Amsterdam, Bruxelles_to_Frankfurt, London_to_Edinburgh_Black, London_to_Edinburgh_Orange, London_to_Amsterdam, Amsterdam_to_Essen, Amsterdam_to_Frankfurt, Frankfurt_to_Berlin_Black, Frankfurt_to_Berlin_Red, Frankfurt_to_Munchen, Frankfurt_to_Essen, Essen_to_Kobenhavn_F_1, Essen_to_Kobenhavn_F_2, Essen_to_Berlin, Berlin_to_Warszawa_Pink, Berlin_to_Warszawa_Yellow, Berlin_to_Danzig, Berlin_to_Wien, Zurich_to_Munchen_T, Zurich_to_Venezia_T, Zurich_to_Marseille_T, Marseille_to_Roma_T, Munchen_to_Venezia_T, Munchen_to_Wien, Venezia_to_Zagrab, Venezia_to_Roma, Roma_to_Palermo_F, Roma_to_Brindisi, Brindisi_to_Athina, Palermo_to_Brindisi, Palermo_to_Smyrna, Kobenhavn_to_Stockholm_Yellow, Kobenhavn_to_Stockholm_White, Stockholm_to_Petrograd_T, Wien_to_Warszawa, Wien_to_Budapest_Red, Wien_to_Budapest_White, Wien_to_Zagrab, Zagrab_to_Budapest, Zagrab_to_Sarajevo, Danzig_to_Riga, Danzig_to_Warszawa, Warszawa_to_Wilno, Warszawa_to_Kyiv, Budapest_to_Kyiv_T, Budapest_to_Bucuresti_T, Budapest_to_Sarajevo, Sarajevo_to_Sofia, Sarajevo_to_Athina, Riga_to_Petrograd, Riga_to_Wilno, Bucuresti_to_Kyiv, Bucuresti_to_Sevastopol, Bucuresti_to_Constantinople, Bucuresti_to_Sofia, Sofia_to_Constantinople, Sofia_to_Athina, Athina_to_Smyrna_F, Wilno_to_Petrograd, Wilno_to_Smolensk, Wilno_to_Kyiv, Kyiv_to_Smolensk, Kyiv_to_Kharkov, Constantinople_to_Sevastopol_F, Constantinople_to_Angora_T, Constantinople_to_Smyrna_T, Smyrna_to_Angora_T, Angora_to_Erzurum, Petrograd_to_Moskva, Smolensk_to_Moskva, Moskva_to_Kharkov, Kharkov_to_Rostov, Sevastopol_to_Rostov, Sevastopol_to_Sochi_F, Sevastopol_to_Erzurum_F, Rostov_to_Sochi, Sochi_to_Erzurum_T}

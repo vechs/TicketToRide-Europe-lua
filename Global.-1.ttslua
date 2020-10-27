@@ -2,7 +2,7 @@
 
 --[[ The onLoad event is called after the game save finishes loading. --]]
 function onLoad()
-    Turns.enable = true
+    -- Turns.enable = true
     -- print("It is ", Turns.turn_color, "'s turn.")
     -- numCards = getObject('SCRIPT_ZONE_DRAW_TRAIN')
 end

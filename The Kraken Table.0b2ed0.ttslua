@@ -45,28 +45,45 @@ function onLoad()
     self.interactable = false;
 
     -- Pickup Zone Buttons (1 to 5 from default camera angle)
-    self.createButton({click_function = "pickupZoneButton1",function_owner = self,label = "Pickup",position = {42, 42.8, -19},rotation = {0, 0, 0},width = 3300,height = 800,font_size = 600,alignment = 3})
-    self.createButton({click_function = "pickupZoneButton2", function_owner = self, label = "Pickup", position = {42, 42.8, -11}, rotation = {0, 0, 0}, width = 3300, height = 800, font_size = 600, alignment = 3})
-    self.createButton({click_function = "pickupZoneButton3", function_owner = self, label = "Pickup", position = {42, 42.8, -3}, rotation = {0, 0, 0}, width = 3300, height = 800, font_size = 600, alignment = 3})
-    self.createButton({click_function = "pickupZoneButton4", function_owner = self, label = "Pickup", position = {42, 42.8, 5}, rotation = {0, 0, 0}, width = 3300, height = 800, font_size = 600, alignment = 3})
-    self.createButton({click_function = "pickupZoneButton5", function_owner = self, label = "Pickup", position = {42, 42.8, 13}, rotation = {0, 0, 0}, width = 3300, height = 800, font_size = 600, alignment = 3})
+   self.createButton({click_function = "pickupZoneButton1",function_owner = self,label = "Pickup",position = {42, 42.8, -19},rotation = {0, 0, 0},width = 3300,height = 800,font_size = 600,alignment = 3})
+   self.createButton({click_function = "pickupZoneButton2", function_owner = self, label = "Pickup", position = {42, 42.8, -11}, rotation = {0, 0, 0}, width = 3300, height = 800, font_size = 600, alignment = 3})
+   self.createButton({click_function = "pickupZoneButton3", function_owner = self, label = "Pickup", position = {42, 42.8, -3}, rotation = {0, 0, 0}, width = 3300, height = 800, font_size = 600, alignment = 3})
+   self.createButton({click_function = "pickupZoneButton4", function_owner = self, label = "Pickup", position = {42, 42.8, 5}, rotation = {0, 0, 0}, width = 3300, height = 800, font_size = 600, alignment = 3})
+   self.createButton({click_function = "pickupZoneButton5", function_owner = self, label = "Pickup", position = {42, 42.8, 13}, rotation = {0, 0, 0}, width = 3300, height = 800, font_size = 600, alignment = 3})
 
-    -- Draw Buttons 1 & 2
-    self.createButton({click_function = "drawTrainZoneButtonSingle", function_owner = self, label = "Draw 1", position = {52.5, 44.8, -1}, width = 2000, height = 1000, font_size = 600, alignment = 3})
-    self.createButton({click_function = "drawTrainZoneButtonDouble", function_owner = self, label = "Draw 2", position = {52.5, 44.8, 1}, width = 2000, height = 1000, font_size = 600, alignment = 3})
+   -- Draw Buttons 1 & 2
+   self.createButton({click_function = "drawTrainZoneButtonSingle", function_owner = self, label = "Draw 1", position = {52.3, 44.8, -1}, width = 2000, height = 1000, font_size = 600, alignment = 3})
+   self.createButton({click_function = "drawTrainZoneButtonDouble", function_owner = self, label = "Draw 2", position = {52.3, 44.8, 1}, width = 2000, height = 1000, font_size = 600, alignment = 3})
 
-    -- Setup Button
-    self.createButton({click_function = "gameSetupButton", function_owner = self, label = "Setup Game", position = {54.4, 43.8, -10}, width = 3800, height = 800, font_size = 600, color = {0, 0.9622, 1, 1}, alignment = 3})
+   -- Setup Button
+   self.createButton({click_function = "gameSetupButton", function_owner = self, label = "Setup Game", position = {54.4, 43.8, -10}, width = 3800, height = 800, font_size = 600, color = {0, 0.9622, 1, 1}, alignment = 3})
 
-    -- Draw Tickets
-    self.createButton({click_function = "drawTicketsButton", function_owner = self, label = "Draw Tickets", position = {-42, 42.8, -3}, width = 3300, height = 800, font_size = 600, alignment = 3})
+   -- Draw Tickets
+   self.createButton({click_function = "drawTicketsButton", function_owner = self, label = "Draw Tickets", position = {-42, 42.8, -3}, width = 3300, height = 800, font_size = 600, alignment = 3})
 end
 
-function gameSetupButton()
+function onPlayerConnect(player)
+    movePlayerToValidColor()
+end
+
+turnCounter = 0
+
+function gameSetupButton(obj, color, alt_click)
+    if Player[color].admin ~= true then
+        broadcastToColor("You are not the game host.", color, errColor)
+        return nil
+    end
     Turns.enable = true
     if flagSetupGamePressed then
         return nil
     end
+
+    playerList = Player.getPlayers()
+    for _, playerReference in ipairs(playerList) do
+        movePlayerToValidColor(playerReference)
+        -- log(playerReference)
+    end
+
     flagSetupGamePressed = true
     local drawDeck = findDeckInZone(getObjectFromGUID(SCRIPT_ZONE_DRAW_TRAIN))
     local routeDeck = findDeckInZone(getObjectFromGUID(SCRIPT_ZONE_DRAW_ROUTE))
@@ -93,22 +110,78 @@ function gameSetupButton()
 
     for i=1, 5 do
         params.position = smoothSetupVecArray[i]
-        params.rotation = Vector(0,90,0)
+        params.rotation = Vector(0, 90, 0)
         obj = drawDeck.takeObject(params)
     end
     return nil
 end
 
-function drawTrainZoneButtonSingle()
+function movePlayerToValidColor(player)
+    for i, v in ipairs(Player.getAvailableColors()) do
+        log(player.color)
+        if player.color ~= v and getSeatedPlayers()[i] ~= v then
+            player.changeColor(v)
+            return true
+        end
+    end
+    return false
+end
+
+function checkTurnCounter()
+    -- print(turnCounter)
+    if turnCounter == 2 then
+        broadcastToAll("Player " .. Turns.turn_color .. "'s turn has ended, please click end turn.", Color.White)
+        return false
+    end
+    if turnCounter < 2 then
+        turnCounter = turnCounter + 1
+    end
+    return true
+end
+
+function checkDeckSize()
     drawDeck = findDeckInZone(getObjectFromGUID(SCRIPT_ZONE_DRAW_TRAIN))
-    drawDeck.deal(1, Turns.turn_color)
-    drawDeck = findDeckInZone(getObjectFromGUID(SCRIPT_ZONE_DRAW_TRAIN))
+    if #drawDeck.getObjects() < 4 then
+        shuffleDeck = findDeckInZone(getObjectFromGUID(SCRIPT_ZONE_DISCARD_TRAIN))
+        shuffleDeck.flip()
+        shuffleDeck.randomize()
+        drawDeck.putObject(shuffleDeck)
+        shuffleDeck.putObject(getObjectFromGUID(SCRIPT_ZONE_DRAW_TRAIN))
+    end
+end
+
+
+function drawTrainZoneButtonSingle(obj, color, alt_click)
+    checkDeckSize()
+    if checkTurnCounter() then
+        if isPlayerTurnOrPromoted(color) then
+            drawDeck = findDeckInZone(getObjectFromGUID(SCRIPT_ZONE_DRAW_TRAIN))
+            drawDeck.deal(1, Turns.turn_color)
+            drawDeck = findDeckInZone(getObjectFromGUID(SCRIPT_ZONE_DRAW_TRAIN))
+        end
+    end
     return nil
 end
 
-function drawTrainZoneButtonDouble()
-    drawTrainZoneButtonSingle()
-    drawTrainZoneButtonSingle()
+function isPlayerTurnOrPromoted(color)
+    table = getSeatedPlayers()
+    for _, value in pairs(table) do
+        if value == color and Turns.turn_color == color then
+            return true
+        elseif Player[color].admin == true then
+            return true
+        end
+    end
+    return false
+end
+
+function drawTrainZoneButtonDouble(obj, color, alt_click)
+    if turnCounter >= 1 then
+        broadcastToColor("You don't have enough moves left to do that.", color, errColor)
+        return nil
+    end
+    drawTrainZoneButtonSingle(obj, color, alt_click)
+    drawTrainZoneButtonSingle(obj, color, alt_click)
     return nil
 end
 
@@ -132,41 +205,62 @@ function findCardInZone(zone)
     return nil
 end
 
-function pickupZoneButton1()
-    handlePickUpZoneViaGUID(SCRIPT_ZONE_PICKUP_1)
+function pickupZoneButton1(obj, color, alt_click)
+    handlePickUpZoneViaGUID(color, SCRIPT_ZONE_PICKUP_1)
 end
 
-function pickupZoneButton2()
-    handlePickUpZoneViaGUID(SCRIPT_ZONE_PICKUP_2)
+function pickupZoneButton2(obj, color, alt_click)
+    handlePickUpZoneViaGUID(color, SCRIPT_ZONE_PICKUP_2)
 end
 
-function pickupZoneButton3()
-    handlePickUpZoneViaGUID(SCRIPT_ZONE_PICKUP_3)
+function pickupZoneButton3(obj, color, alt_click)
+    handlePickUpZoneViaGUID(color, SCRIPT_ZONE_PICKUP_3)
 end
 
-function pickupZoneButton4()
-    handlePickUpZoneViaGUID(SCRIPT_ZONE_PICKUP_4)
+function pickupZoneButton4(obj, color, alt_click)
+    handlePickUpZoneViaGUID(color, SCRIPT_ZONE_PICKUP_4)
 end
 
-function pickupZoneButton5()
-    handlePickUpZoneViaGUID(SCRIPT_ZONE_PICKUP_5)
+function pickupZoneButton5(obj, color, alt_click)
+    handlePickUpZoneViaGUID(color, SCRIPT_ZONE_PICKUP_5)
 end
 
-function drawTicketsButton()
-    local routeDeck = findDeckInZone(getObjectFromGUID(SCRIPT_ZONE_DRAW_ROUTE))
-    routeDeck.deal(3, Turns.turn_color)
+function drawTicketsButton(obj, color, alt_click)
+    if isPlayerTurnOrPromoted(color) then
+        local routeDeck = findDeckInZone(getObjectFromGUID(SCRIPT_ZONE_DRAW_ROUTE))
+        routeDeck.deal(3, Turns.turn_color)
+    end
 end
 
-function handlePickUpZoneViaGUID(guid)
-    pickupZone = findCardInZone(getObjectFromGUID(guid))
-    pickupZone.deal(1, Turns.turn_color)
-    local vecPosition = getObjectFromGUID(guid).getPosition()
-    drawDeck = findDeckInZone(getObjectFromGUID(SCRIPT_ZONE_DRAW_TRAIN))
-    params = {
-        flip = true,
-        position = vecPosition,
-        rotation = Vector(0,-90,0)
-    }
-    drawDeck.takeObject(params)
+function handlePickUpZoneViaGUID(color, guid)
+    if isPlayerTurnOrPromoted(color) then
+        pickupZone = findCardInZone(getObjectFromGUID(guid))
+        if pickupZone == nil or pickupZsaone == '' then
+            return nil
+        end
+        if checkTurnCounter() then
+            pickupZone.deal(1, color)
+            local vecPosition = getObjectFromGUID(guid).getPosition()
+            drawDeck = findDeckInZone(getObjectFromGUID(SCRIPT_ZONE_DRAW_TRAIN))
+            params = {
+                flip = true,
+                position = vecPosition,
+                rotation = Vector(0, 90, 0)
+            }
+            drawDeck.takeObject(params)
+            return nil
+        end
+    end
     return nil
 end
+
+function onPlayerTurn(color)
+    turnCounter = 0
+    Turns.enable = true
+end
+
+function onPlayerChangeColor(color)
+    Turns.enable = true
+end
+
+errColor = {r=1,g=0,b=0}
